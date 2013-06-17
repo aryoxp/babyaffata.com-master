@@ -1,0 +1,258 @@
+@font-face {
+	font-family: OpenSans;
+	src: url('../font/OpenSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: OpenSansBold;
+	src: url('../font/OpenSans-Bold.ttf');
+}
+
+@font-face {
+	font-family: OpenSansCondensed;
+	src: url('../font/OpenSans-CondBold.ttf');
+}
+
+@font-face {
+	font-family: Spinnaker;
+	src: url('../font/Spinnaker-Regular.ttf');
+}
+
+body {
+	font-family: OpenSans;
+	color: #888;
+}
+
+.accent {
+	background-color: #ff8f50;
+	height: 0.8em;
+}
+
+ul.top-menu {
+	font-family: Spinnaker;
+	text-transform: uppercase;
+	float: right;
+}
+
+ul.top-menu li {
+	 list-style: none;
+	 display: inline-block;
+	 font-size: 0.7em;
+	 padding: 0.5em 1em;
+	 border-right: 1px solid #DDD;
+}
+
+ul.top-menu li:last-child {
+	 border:none;
+	 margin-right: 2em;
+}
+
+ul.top-menu a, ul.top-menu a:hover {
+	color: #74949a;
+}
+
+.cart {
+	float: right;
+	margin: 2em 0 0.8em;
+}
+.cart-info {
+	display: inline-block;
+	font-family: OpenSans;
+	font-size: 0.97em;
+	color: #999;
+	margin: 0em 0.5em 0;
+	vertical-align: middle;
+	text-align: right;
+}
+.cart-info-item a {
+	color: #74949a;
+	font-family: OpenSansBold;
+	border-bottom: 1px solid #74949a;
+}
+
+.cart-info-item a:hover {
+	text-decoration: none;
+}
+
+.cart-info-item a:hover:before{
+	content: "\00BB";
+}
+
+.cart-button {
+	margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+.cart-button a {
+	text-transform: uppercase;
+	font-family: Spinnaker;
+	color: #977a13;
+	text-shadow: 0 1px 0 #ffe792;
+	background-color: #ffcb13;
+	padding: 1em 1em;
+	border-radius: 5px;
+	color: inherit;
+}
+
+ul.menubar {
+	margin: 0;
+}
+
+ul.menubar li {
+	list-style: none;
+	display: inline-block;
+	font-family: OpenSansCondensed;
+	font-size: 1.15em;
+	text-transform: uppercase;
+	padding: 0.5em 0.5em;
+	text-shadow: 0 1px 0 #4c7379;
+}
+
+ul.menubar li:first-child {
+	margin-left: 1em;
+}
+
+ul.menubar li a {
+	color: white;
+	text-decoration: none;
+}
+ul.menubar li a:hover {
+	color: #4c7379;
+	text-shadow: 0 1px 0 white;
+}
+
+
+.container.content {
+	background-color: #f4f4f4;
+}
+.sidebar {
+	background: #ebebeb url('../images/bg-sidebar.png') repeat-y right;
+	padding-bottom: 2em;
+}
+
+.sidebar-header, .content-header {
+	background: transparent url('../images/bg-sidebar-title.png') no-repeat;
+	position: relative;
+	left: -11px;
+	font-family: Spinnaker;
+	text-transform: uppercase;
+	text-shadow: 0 -1px 0 #d97237;
+	color: white;
+	padding: 0.5em 0.5em 1.2em 1em;
+	margin: 1em 0 0;
+}
+
+.sidebar ul li {
+	list-style: none;
+	font-family: OpenSans, Arial, sans-serif;
+	padding: 0.2em 0;
+}
+
+.sidebar ul li a {
+	color: #888;
+	text-shadow: 0 1px 0 white;
+}
+
+.content-header {
+	left: -32px;
+}
+
+.header-link a {
+	float: right; 
+	font-family:Spinnaker; font-size: 0.8em; text-transform: uppercase;
+	color: #74949a;
+	text-shadow: 0 1px 0 white;
+	padding-top: 1.5em;
+}
+
+.hero, .content-box, .product-box {
+	border: 1px solid #E4E4E4;
+	border-radius: 3px;
+	background-color: white;
+	margin: 1.5em 1.5em 1.5em 0;
+}
+
+.content-box {
+	margin-top: 0;
+}
+
+.product-box {
+	margin: 0.5% 0;
+	margin-left: 1% !important;
+	width: 32.525% !important;
+	padding: 0.5em;
+	font-size: 0.9em;
+	color: #888;
+	line-height: 1.2em;
+	position: relative;
+	font-family: OpenSans;
+}
+
+.product-box:first-child {
+	margin-left: 0 !important;
+}
+
+.product-box .product-image {
+	text-align: center;
+	padding: 1.3em 0;
+}
+
+.product-box .discount {
+	width: 51px;
+	background: url('../images/discount.png') no-repeat top left;
+	float: right;
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	text-align: center;
+	padding: 0.5em 0 2.1em;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1.4em;
+	color: #4c7379;
+}
+
+.product-box .price {
+	font-size: 1.5em;
+	font-family: OpenSansBold;
+	color: #4c7379;
+}
+
+.product-box .price-normal {
+	font-size: 0.6em;
+	text-decoration: line-through;
+	font-family: OpenSans;
+	color: #ff9861;
+}
+
+.about {
+	font-size: 0.9em;
+	padding: 1em 2em 0 1em;
+}
+.about h2 {
+	font-family: OpenSansCondensed;
+	font-size: 1.3em;
+	margin: 0; padding: 0;
+	letter-spacing: -1px;
+}
+.about p {
+	margin: 0; padding: 0;
+}
+
+.footer {
+	background-color: white;
+}
+.footer h2 {
+	font-family: Spinnaker;
+	font-size: 1em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 0 white;
+	letter-spacing: -1px;
+	color: #628397;
+}
+
+@media all and (min-width: 1200px) {
+	.content-header {
+		left: -42px;
+	}
+}
