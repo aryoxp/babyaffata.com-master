@@ -7,7 +7,7 @@ class model_options extends model {
 	
 	public function read($id){
 	
-		$sql = "SELECT id, name, description, value, level FROM coms_options ";
+		$sql = "SELECT id, name, description, value, level FROM coms.coms_options ";
 		$sql .= "WHERE name = '".$this->db->escape($id)."'";
 	
 		$option = $this->db->getRow( $sql );
@@ -21,7 +21,7 @@ class model_options extends model {
 		$data['value'] = serialize($value);
 		$where['name'] = $id;
 		
-		$affected = $this->db->update('coms_options', $data, $where);
+		$affected = $this->db->update('coms.coms_options', $data, $where);
 		//var_dump($this->db);
 		return $affected;
 		
