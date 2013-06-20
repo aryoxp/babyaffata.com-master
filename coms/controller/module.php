@@ -5,7 +5,7 @@ class controller_module extends comscontroller {
 
 	function __construct() {
 		parent::__construct();
-
+		
 		// re-route to module MVC
 		if(!method_exists($this, $this->methodName))
 			$this->start();
@@ -83,7 +83,7 @@ class controller_module extends comscontroller {
 					$p = "modules/".$this->module->name."/controller/".implode("/", $patharray).".php";
 					
 					if(file_exists( $p )) { //echo $p." exists!\n";
-					
+
 						$this->module->controller = $this->module->name
 							."_".implode("_", $patharray);
 						
@@ -108,12 +108,12 @@ class controller_module extends comscontroller {
 	
 	private function start() {
 		
+		// initialize module router
 		$this->initRouter();
-		
-		if($this->module && @$this->module->controller) {
-			//var_dump($this); exit;
-			$mod = new $this->module->controller($this);
 
+		if($this->module && @$this->module->controller) {
+
+			$mod = new $this->module->controller($this); //var_dump($mod); exit;
 			if( $mod ) {
 				if(method_exists($mod, $this->module->method)) {
 				
