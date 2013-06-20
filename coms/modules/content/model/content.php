@@ -9,6 +9,31 @@ class model_content extends model {
 	public $id;
 	public $modified;
 	
+	public function install() {
+	
+		$sqls[] = "DROP TABLE IF EXISTS `contents`;";
+		$sqls[] = "CREATE TABLE IF NOT EXISTS `contents` (
+		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		  `content_page` varchar(255) NOT NULL,
+		  `content_title` varchar(255) NOT NULL,
+		  `content_modified` datetime NOT NULL,
+		  `content_content` longtext NOT NULL,
+		  `content_status` enum('published','draft','private') NOT NULL,
+		  `content_author_id` varchar(50) NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `U_PAGE` (`content_page`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+		
+		foreach ($sqls as $s) {
+			$this->db->query($s);
+		}
+		
+		$sql = "SHOW TABLES LIKE 'contents'";
+		$res = $this->db->query($sql);
+		if($res) return true;
+		else return false;
+	}
+	
 	public function save($content_page, $content_title, $content_date, 
 							$content_content, $content_status,
 							$content_author_id, $id) {
