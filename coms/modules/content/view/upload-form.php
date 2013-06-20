@@ -13,4 +13,4 @@
         		</div>
         	</div>
         </div>
-<?php $this->view('footer-blank.php'); ?>
+<?php $this->view('footer-bare.php'); ?>
