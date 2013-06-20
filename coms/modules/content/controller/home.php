@@ -209,5 +209,8 @@ class content_home extends comsmodule {
 	
 	}
 	
+	public function install() {
+		$this->view('install.php');
+	}
 }
 ?>
