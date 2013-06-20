@@ -1,3 +1,4 @@
+	<?php if(!isset($blankfooter)): ?>
 	<div id="footer" class="container-fluid" style="margin-top: 1em;">
 	
 		<p class="pull-right"><a href="#"><i class="icon-chevron-up"></i> Back to top</a></p>
@@ -12,7 +13,7 @@
 		</p>
 		
 	</div>
-
+	<?php endif; ?>
  
 	<!-- Le javascript
 	================================================== -->
