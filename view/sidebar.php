@@ -13,7 +13,7 @@
 	<li><a href="">Check No Resi</a></li>
 	<li><a href="">Estimasi Ongkos Kirim</a></li>
 	<li><a href="">Belanja Cepat</a></li>
-	<li><a href="">ATURAN BELANJA</a></li>
+	<li><a href="<?php echo $this->location('page/read/aturan-belanja.html'); ?>">Aturan Belanja</a></li>
 	<li><a href="">XLTunai</a></li>
 	<li><a href="">Cara Belanja</a></li>
 </ul>

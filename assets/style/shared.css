@@ -1,4 +1,9 @@
 @font-face {
+	font-family: OpenSansLight;
+	src: url('../font/OpenSans-Light.ttf');
+}
+
+@font-face {
 	font-family: OpenSans;
 	src: url('../font/OpenSans-Regular.ttf');
 }
@@ -174,6 +179,14 @@ ul.menubar li a:hover {
 
 .content-box {
 	margin-top: 0;
+}
+
+.content-box h1, .content-box h2, .content-box h3, .content-box h4 {
+	font-family: OpenSansLight;
+	color: #ff8f50;
+	padding: 0 0 0.5em 0;
+	margin: 0.5em 0 1em 0;
+	border-bottom: 1px solid #ccc;
 }
 
 .product-box {
