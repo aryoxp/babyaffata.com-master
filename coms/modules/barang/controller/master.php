@@ -13,9 +13,9 @@ class barang_master extends comsmodule {
 	function index($by = 'all', $keyword = NULL, $page = 1, $perpage = 500){
 		$mmaster = new model_master();		
 		
-		$data['posts'] = $mmaster->read('');	
+		$data['posts'] = $mmaster->read();	
 		
-		$this->coms->add_style('bootstrap/css/DT_bootstrap.css');
+		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
 		$this->coms->add_script('js/datatables/jquery.dataTables.js');	
 		$this->coms->add_script('js/datatables/DT_bootstrap.js');	
 
@@ -42,16 +42,16 @@ class barang_master extends comsmodule {
 		
 		$data['posts'] 		= "";
 		$data['kategori'] 	= $mconf->get_kategori_barang();
-		$data['manufacture']= $mconf->get_manufacture();	
+		$data['brand']		= $mconf->get_brand();	
 		$data['dimensi']	= $mconf->get_dimensi_barang();
-		$data['deskripsi']	= array('deskripsi','features');
+		$data['deskripsi']	= $mconf->get_nama_detail_barang();
 		
 		$this->coms->add_style('css/custom-theme/jquery-ui-1.8.16.custom.css');
 		$this->coms->add_style('css/token-input-facebook.css');
-		$this->coms->add_style('bootstrap/css/bootstrap-tagmanager.css');
+		$this->coms->add_style('css/bootstrap/bootstrap-tagmanager.css');
 		
 		$this->coms->add_script('js/jquery-ui-1.8.16.custom.min.js');		
-		$this->coms->add_script('bootstrap/js/bootstrap-tagmanager.js');
+		$this->coms->add_script('js/bootstrap/bootstrap-tagmanager.js');
 		$this->coms->add_script('ckeditor/ckeditor.js');
 		$this->coms->add_script('js/jquery.tokeninput.js');		
 		$this->add_script('js/barang.js');	
@@ -66,11 +66,23 @@ class barang_master extends comsmodule {
 			exit;
 		}
 		
-		$mconf = new model_conf();
-		$mmaster = new model_master();	
+		$mconf 		= new model_conf();
+		$mmaster 	= new model_master();	
 		
-		$data['posts'] = $mmaster->read($id);	
-		$data['tahap'] = $mmaster->get_tahap();	
+		$data['posts'] 		= $mmaster->read($id);	
+		$data['kategori'] 	= $mconf->get_kategori_barang();
+		$data['brand']		= $mconf->get_brand();	
+		$data['dimensi']	= $mconf->get_dimensi_barang();
+		$data['deskripsi']	= $mconf->get_nama_detail_barang();
+		
+		$this->coms->add_style('css/custom-theme/jquery-ui-1.8.16.custom.css');
+		$this->coms->add_style('css/token-input-facebook.css');
+		$this->coms->add_style('css/bootstrap/bootstrap-tagmanager.css');
+		
+		$this->coms->add_script('js/jquery-ui-1.8.16.custom.min.js');		
+		$this->coms->add_script('js/bootstrap/bootstrap-tagmanager.js');
+		$this->coms->add_script('ckeditor/ckeditor.js');
+		$this->coms->add_script('js/jquery.tokeninput.js');		
 						
 		$this->add_script('js/barang.js');
 		
@@ -79,7 +91,7 @@ class barang_master extends comsmodule {
 	
 	function save(){
 	
-		if(isset($_POST['b_master'])!=""){
+		if(isset($_POST['b_master'])){
 			$this->saveToDB();
 			exit();
 		}else{
@@ -94,181 +106,126 @@ class barang_master extends comsmodule {
 		
 		$mmaster = new model_master();	
 		$mconf	 = new model_conf();
-			
-		if($_POST['hidId']!=""){
-			$id 	= $_POST['hidId'];
-			$action = "update";
-		}else{			
-			$id		= $mmaster->get_barang_id();
-			$action = "insert";			
-		}
 		
-		if(isset($_POST['isaktif'])){
-			$isaktif = $_POST['isaktif'];
-		}else{
-			$isaktif = 0;
-		}
-		
-		if(isset($_POST['ispublish'])){
-			$ispublish = $_POST['ispublish'];
-		}else{
-			$ispublish = 0;
-		}
-		
-		if(isset($_POST['isbaru'])){
-			$isbaru = $_POST['isbaru'];
-		}else{
-			$isbaru = 0;
-		}
-		
-		if(isset($_POST['ispromo'])){
-			$ispromo = $_POST['ispromo'];
-		}else{
-			$ispromo = 0;
-		}
-		
-		if(isset($_POST['ispreorder'])){
-			$ispreorder = $_POST['ispreorder'];
-		}else{
-			$ispreorder = 0;
-		}
-						
 		$lastupdate	= date("Y-m-d H:i:s");
 		$tahun		= date("y");
 		$user		= $this->coms->authenticatedUser->username;
 		
-						
+		if($_POST['b_master']){
+			
+			
 		/* generate kode barang */
-		if(isset($_POST['chkgenerate'])){
-			$str		= strToUpper(substr($_POST['nama_barang'],0,1)).$tahun;
-			$strkode	= $mmaster->get_kode_barang($str);
-			
-			$kodebarang	= $str.$strkode;				
-		}else{
-			$kodebarang	= $_POST['kode_barang'];	
-		}
-		
-		$namabarang		= $_POST['nama_barang'];
-		$manufacturer	= $_POST['manufactureid'];
-		$alias			= trim(preg_replace('/[ \/]/', '-', (preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 \/]/', '', strtolower($kodebarang.$namabarang))))));
-		
-		echo $kodebarang;
-		if($namabarang){
-			
-			/* qty barang */		
-			$available	= $_POST['qty'];
-			$rejected	= $_POST['rejected'];
-			$reserved	= $_POST['reserved'];
-			$preorder	= $_POST['preorder'];
-			$minorder	= $_POST['min_order'];
-			$maxorder	= $_POST['max_order'];
-			$tglpreoder	= $_POST['tgl_preorder'];
-			$qty		= $available + $rejected + $reserved;
-			
-			$datanya = Array('barang_id'=>$id, 'nama_barang'=>$namabarang, 'kode_barang'=>$kodebarang, 'qty'=>$qty, 'available'=>$available,
-						'rejected'=>$rejected, 'reserved'=>$reserved, 'alias_barang'=>$alias, 'preorder'=>$preorder, 'tgl_available'=>$tglpreoder,
-						'is_preoder'=>$ispreorder, 'is_publish'=>$ispublish, 'is_promo'=>$ispromo, 'is_aktif'=>$isaktif, 'is_baru'=>$isbaru,
-						'user_id'=>$user, 'last_update'=>$lastupdate);
-			$mmaster->replace_barang($datanya);
-			
-			/*kategori barang */
-			$kategori 	= explode(",", $_POST['kategori']);
-			
-			for($i=0;$i<count($kategori);$i++){
-				$datanya = Array('kelompok_id'=>$kategori[$i], 'barang_id'=>$id);
-				$mmaster->replace_kategori($datanya);
+			if(isset($_POST['chkgenerate'])){
+				$str		= strToUpper(substr($_POST['nama_barang'],0,1)).$tahun;
+				$strkode	= $mmaster->get_kode_barang($str);
+				
+				$kodebarang	= $str.$strkode;				
+			}else{
+				$kodebarang	= $_POST['kode_barang'];	
 			}
 			
-			/*tag barang */
-			$tags	= explode("&", $_POST['hidBarang']);
-			
-			for($i=0;$i<count($tags);$i++){
-				$datanya = Array('tag'=>$tags[$i], 'barang_id'=>$id);
-				$mmaster->replace_tags($datanya);
+			$namabarang		= $_POST['nama_barang'];
+			$brand			= $_POST['brandid'];
+			$alias			= trim(preg_replace('/[ \/]/', '-', (preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 \/]/', '', strtolower($kodebarang.$namabarang))))));
+						
+			if(isset($_POST['ispublish'])){
+				$ispublish = $_POST['ispublish'];
+			}else{
+				$ispublish = 0;
+			}
+				
+			if($_POST['hidId']){
+				$bid 	= $_POST['hidId'];
+				$action = "update";
+			}else{			
+				$bid	= "";
+				$action = "insert";			
 			}		
+				
+			if($namabarang){
+				$datanya = array('nama_barang'=>$namabarang, 'kode_barang'=>$kodebarang, 'alias_barang'=>$alias, 'brand_id'=>$brand, 'is_publish'=>$ispublish, 'user_id'=>$user, 'last_update'=>$lastupdate);								 
+				if($bid){
+					$idnya	 = array('barang_id'=>$_POST['hidId']);
+					$mmaster->update_barang($datanya, $idnya);
+					$id		= $bid;
+				}else{
+					$mmaster->replace_barang($datanya);
+					$id		= $mmaster->get_barang_id($namabarang, $kodebarang);
+				}			
+			}
 			
-			/*deskripsi barang */
-			
-			if(isset($_POST['ispaktif'])){
-				$ispaktif = $_POST['ispaktif'];
+					
+			if($id){		
+				$sfile	= $_FILES['file'];
+				for($i=0;$i<count($sfile);$i++){
+					if($i=0){
+						$jenis	= 'main';
+					}else{
+						$jenis	= '-';
+					}
+					$nfile	= $_FILES['file']['name'][$i];
+					$tfile	= $_FILES['file']['tmp_name'][$i];
+					
+					$this->upload_foto($i, $nfile,$tfile, $id, $alias, $mmaster, $jenis);
+				}
+						
+				/* qty barang */		
+				$available	= $_POST['qty'];
+				$rejected	= $_POST['rejected'];
+				$reserved	= $_POST['reserved'];
+				$preorder	= $_POST['preorder'];
+				/*$minorder	= $_POST['min_order'];
+				$maxorder	= $_POST['max_order'];
+				$tglpreoder	= $_POST['tgl_preorder'];*/
+				$qty		= $available + $rejected + $reserved;
+						
+				
+				/* stok */
+				$datanya = array( 'qty'=>$qty, 'available'=>$available,	'rejected'=>$rejected, 'reserved'=>$reserved, 'preorder'=>$preorder, 
+							'barang_id'=>$id, 'user_id'=>$user, 'last_update'=>$lastupdate);
+				$mmaster->replace_stok($datanya);
+				
+				
+				
+				/*kategori barang */
+				$kategori 	= explode(",", $_POST['kategori']);
+				
+				for($i=0;$i<count($kategori);$i++){
+					$datanya = array('kategori_id'=>$kategori[$i], 'barang_id'=>$id);
+					$mmaster->insert_kategori_barang($datanya);
+				}
+				
+				for($i=0;$i<count($_POST['hidDesc']);$i++){
+					$hiddesk	= $_POST['hidDesc'][$i];
+					$deskripsi	= $_POST['deskripsi'][$i];
+					
+					$deskid	= $id.$i;
+					
+					if($deskripsi){
+						$datanya = array('detail_id'=>$deskid, 'nama_detail_id'=>$hiddesk, 'barang_id'=>$id, 'keterangan'=>$deskripsi);
+						$mmaster->replace_deskripsi($datanya);
+					}
+				}
+				
+				$beli		= $_POST['beli'];
+				$jual		= $_POST['jual'];
+				$ppn		= $_POST['ppn'];
+				$diskon		= $_POST['diskon'];
+				$this->insert_harga($beli, $jual, $ppn, $diskon, $id, $user, $lastupdate, $mmaster, $bid);
+				
+				$this->insert_tag($_POST['hidBarang'], $id, $mmaster);
+				
+											
+				unset($_POST['b_master']);
+				$this->index('ok');
+				exit();
+				
 			}else{
-				$ispaktif = 0;
+				$this->index('nok');
+				exit();
 			}
-			
-			if(isset($_POST['isppublish'])){
-				$isppublish = $_POST['isppublish'];
-			}else{
-				$isppublish = 0;
-			}
-				
-			for($i=0;$i<count($_POST['hidDesc']);$i++){
-				$hiddesk	= $_POST['hidDesc'][$i];
-				$deskripsi	= $_POST['deskripsi'][$i];
-				
-				$deskid	= $id.$i;
-				
-				$datanya = Array('info_id'=>$deskid, 'jenis_info'=>$hiddesk, 'barang_id'=>$id, 'keterangan'=>$deskripsi, 
-							'is_aktif'=>$ispaktif, 'is_publish'=>$isppublish);
-				$mmaster->replace_deskripsi($datanya);
-			}
-			
-			/*dimensi barang */		
-			for($i=0;$i<count($_POST['hidDimensi']);$i++){
-				$jenisdimensi= $_POST['hidDimensi'][$i];
-				$dimensi	= $_POST['dimensi'][$i];
-				$satuan		= $_POST['satuan'][$i];
-				
-				$dimensiid	= $id.$i;
-				
-				$datanya = Array('dimensi_id'=>$dimensiid, 'jenis_dimensi_barang'=>$jenisdimensi, 'barang_id'=>$id, 
-							'keterangan'=>$dimensi, 'satuang'=>$satuan);
-				$mmaster->replace_dimensi($datanya);
-				
-			}
-			
-			/*harga barang */
-			if(isset($_POST['ishaktif'])){
-				$ishaktif = $_POST['ishaktif'];
-			}else{
-				$ishaktif = 0;
-			}
-			
-			$beli		= $_POST['beli'];
-			$jual		= $_POST['jual'];
-			$ppn		= $_POST['ppn'];
-			$infdiskon	= $_POST['diskon'];
-			$diskon		= $jual - ($infdiskon * $jual);
-			$tglberlaku	= $_POST['tgl_berlaku'];
-			$matauang	= $_POST['kurs'];
-			
-			$dataupdate	= Array('is_aktif'=>0);
-			$idnya		= Array('barang_id'=>$id);
-			$datanya	= Array('barang_id'=>$id, 'harga_jual'=>$jual, 'harga_beli'=>$beli, 'ppn'=>$ppn, 'diskon'=>$diskon, 'inf_diskon'=>$infdiskon, 'tgl_mulai_berlaku'=>$tglberlaku, 
-						  'mata_uang'=>$matauang, 'is_aktif'=>$ishaktif);
-			$mmaster->update_harga_barang($dataupdate, $idnya);
-			$mmaster->replace_harga_barang($datanya);
-			
-			exit();
-		
-		}else{
-			$this->index('nok');
-			exit();
 		}
-				
-		echo $kode;
-		exit();
 		
-		if($kategori){
-			$datanya 	= Array('kategori_id'=>$kode, 'parent_id'=>$subkategori, 'keterangan'=>$kategori,  'is_aktif'=>$isaktif, 
-						 'user_id'=>$user, 'last_update'=>$lastupdate);
-			//$mmaster->replace_kategori($datanya);
-			
-			$this->index('ok');
-			exit();
-		}else{
-			$this->index('nok');
-			exit();
-		}
 	}
 	
 	function delete(){
@@ -280,9 +237,9 @@ class barang_master extends comsmodule {
 		
 		$result = array();
 		
-		$datanya=array('kategori_id'=>$id);
+		$datanya=array('barang_id'=>$id);
 				
-		if($mmaster->delete_komponen($datanya))
+		if($mmaster->delete_barang($datanya))
 			$result['status'] = "OK";
 		else {
 			$result['status'] = "NOK";
@@ -290,6 +247,114 @@ class barang_master extends comsmodule {
 		}
 		echo json_encode($result);
 	}
+	
+	function insert_harga($beli, $jual, $ppn, $diskon, $id, $user, $lastupdate, $mmaster, $bid){
+		$idnya	 = Array('barang_id'=>$id);
+		$datanya = Array('harga_jual'=>$jual, 'harga_beli'=>$beli, 'ppn'=>$ppn, 'diskon'=>$diskon, 'user_id'=>$user, 'last_update'=>$lastupdate, 'barang_id'=>$id);
+		
+		if($bid){
+			$mmaster->update_harga_barang($datanya, $idnya);
+		}else{
+			$mmaster->replace_harga_barang($datanya);
+		}
+	}
+	
+	function insert_tag($tags, $id, $mmaster){
+		$tag = explode("&", $tags);
+				
+		for($i=0;$i<count($tag);$i++){
+			$datanya = array('barang_id'=>$id, 'tag'=>$tag[$i]);
+			if($tag[$i]){
+				$mmaster->replace_tags($datanya);	
+			}				
+		}		
+	}
+	
+	
+	function upload_foto($i, $sfile, $tfile, $id, $alias, $mmaster, $jenis){
+		if($sfile){
+			$filename 	= stripslashes(@$sfile); 
+			$extension 	= $this->getExtension($filename); 
+			$extension 	= strtolower($extension); 
+			
+			$big		= $i.$alias.".".$extension;
+			$small		= "thumb-".$big;
+			
+			
+			
+			if (($extension != "png") && ($extension != "jpg") && ($extension != "jpeg")){ 
+				$result['error'] = "Unknown extension! Please upload image only";
+				print "<script> alert('Unknown extension! Please upload image only'); </script>"; 
+				$errors=1; 
+				
+				$this->index();
+				exit();
+				
+			}
+			
+			if($extension=="jpg" || $extension=="jpeg" )
+			{
+			$uploadedfile = $tfile;
+			$src = imagecreatefromjpeg($uploadedfile);
+			
+			}
+			else if($extension=="png")
+			{
+			$uploadedfile = $tfile;
+			$src = imagecreatefrompng($uploadedfile);
+			
+			}
+			else 
+			{
+			$src = imagecreatefromgif($uploadedfile);
+			}
+			
+			$dirbig 	= "assets/uploads/file/barang";
+			$dirsmall 	= "assets/uploads/file/barang/thumb";
+			
+			
+			if(!file_exists($dirbig) OR !is_dir($dirbig)){
+				mkdir($dirbig, 0777, true);         
+			} 
+			
+			if(!file_exists($dirsmall) OR !is_dir($dirsmall)){
+				mkdir($dirsmall, 0777, true);         
+			} 
+			
+			list($width,$height)=getimagesize($uploadedfile);
+
+			$newwidth=60;
+			$newheight=($height/$width)*$newwidth;
+			$tmp=imagecreatetruecolor($newwidth,$newheight);				
+			
+			imagecopyresampled($tmp,$src,0,0,0,0,$newwidth,$newheight,$width,$height);						
+			
+			$newname = "assets/uploads/file/barang/". $big;
+			$copied = move_uploaded_file($tfile, $newname); 
+			
+			$thumbname = "assets/uploads/file/barang/thumb/". $small;
+			imagejpeg($tmp,$thumbname,100);
+			
+			if (!$copied){  
+				print "<script> alert('Copy unsuccessfull!'); </script>"; 
+				$errors=1; 
+				
+				$this->index();
+				exit();
+			}					
+			
+			$datanya 	= Array('nama_file'=>$big, 'thumb_file'=>$small, 'lokasi'=>$newname,'lokasi_thumb'=>$thumbname, 'barang_id'=>$id, 'jenis'=>$jenis);
+			$mmaster->replace_foto($datanya);
+		}
+	}
+	
+	function getExtension($str) { 
+		$i = strrpos($str,"."); 
+		if (!$i) { return ""; } 
+		$l = strlen($str) - $i; 
+		$ext = substr($str,$i+1,$l); 
+		return $ext; 
+	}  
 	
 }
 ?>
