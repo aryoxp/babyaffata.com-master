@@ -1,7 +1,7 @@
 <?php $this->head(); ?>
 <fieldset>
-	<legend><a href="<?php echo $this->location('module/barang/master/write'); ?>" class="btn btn-primary pull-right">
-    <i class="icon-pencil icon-white"></i> New Product</a> Products List
+	<legend><a href="<?php echo $this->location('module/barang/kategori/write'); ?>" class="btn btn-primary pull-right">
+    <i class="icon-pencil icon-white"></i> New Product Category</a> Product Categories
 	</legend>
 	
 	 <?php
@@ -15,10 +15,10 @@
 	endif; 
 	
 	 if( isset($posts) ) :	
-		$str="<table class='table table-hover' id='example' data-id='module/barang/master'>
+		$str="<table class='table table-hover' id='example' data-id='module/barang/kategori'>
 				<thead>
-					<tr>					
-						<th>Products</th>
+					<tr>						
+						<th>Product Categories</th>
 						<th>Act</th>
 					</tr>
 				</thead>
@@ -27,14 +27,16 @@
 			$i = 1;
 			if($posts > 0){
 				foreach ($posts as $dt): 
-					$str.=	"<tr id='post-".$dt->barang_id."' data-id='".$dt->barang_id."' valign=top>
-								<td>".$dt->nama_barang."&nbsp;";
-					if($dt->kode_barang){
-						$str.= "<br><code>".$dt->kode_barang."</code>";
+					$str.=	"<tr id='post-".$dt->kategori_id."' data-id='".$dt->kategori_id."' valign=top>
+								<td>By <b>".$dt->kategori."</b> : ";
+					if($dt->ptahap){
+						$str.= "<small>".$dt->ptahap." > ".$dt->keterangan."</small><br>";
+					}else{
+						$str.="<small>".$dt->keterangan."</small><br>";
 					}
 					
-					if($dt->brand){
-						$str.= "&nbsp;<em>".$dt->brand."</em>";
+					if($dt->ispublish){
+						$str.= "<code>".$dt->ispublish."</code>&nbsp;";
 					}
 					
 					$str.= "</td>";
@@ -44,7 +46,7 @@
 								  <a class='dropdown-toggle' id='drop4' role='button' data-toggle='dropdown' href='#'>Action <b class='caret'></b></a>
 								  <ul id='menu1' class='dropdown-menu' role='menu' aria-labelledby='drop4'>
 									<li>
-										<a class='btn-edit-post' href=".$this->location('module/barang/master/edit/'.$dt->id)."><i class='icon-pencil'></i> Edit</a>	
+										<a class='btn-edit-post' href=".$this->location('module/barang/kategori/edit/'.$dt->id)."><i class='icon-pencil'></i> Edit</a>	
 									</li>
 									<li>
 										<a class='btn-delete-post'><i class='icon-remove'></i> Delete</a>
