@@ -29,7 +29,7 @@ $tglavail	= date("Y-m-d");
 	</div>
 </div>
 
-<div class="control-group">	
+<!--<div class="control-group">	
 	<label class="control-label">Minimum Purchased</label>
 	<div class="controls">
 		<input type="number" name='min_order' class="span3" value="<?php echo $min_order; ?>">						
@@ -41,7 +41,7 @@ $tglavail	= date("Y-m-d");
 	<div class="controls">
 		<input type="number" name='max_order' class="span3" value="<?php echo $max_order; ?>">						
 	</div>
-</div>
+</div>-->
 
 
 <div class="control-group">	
@@ -50,10 +50,10 @@ $tglavail	= date("Y-m-d");
 		<input type="number" name='preorder' class="span3" value="<?php echo $preorder; ?>">						
 	</div>
 </div>
-
+<!--
 <div class="control-group">	
 	<label class="control-label">Available Date</label>
 	<div class="controls">
 		<input type="date" name='tgl_preorder' class="tgl" value="<?php echo $tglavail; ?>">						
 	</div>
-</div>
+</div>-->

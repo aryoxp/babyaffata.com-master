@@ -1,0 +1,54 @@
+ <div class="control-group">	
+								<label class="control-label">Kategori Barang</label>
+								<div class="controls">
+									<!--<input type="text" name='kategori' class="span9" id="katbarang">
+									<input type="hidden" name="kategoriid" id="katbarang">			-->
+									<input type="text" name="kategori" id="dkategori" class="span9">						
+								</div>
+							</div>
+							
+							<div class="control-group">	
+								<label class="control-label">Manufacture By</label>
+								<div class="controls">
+									<input type="text" name='manufacture' class="span9" id="manufacture">
+									<input type="hidden" name="manufactureid" id="manufacture">
+									
+								</div>
+							</div>
+							
+							 <div class="control-group">	
+								<label class="control-label">Kode Barang</label>
+								<div class="controls">
+									<input type="text" name='kode_barang' class="span6" id="kodebarang">	
+								<label class="checkbox"><input type="checkbox" name="chkgenerate" value="1" id="chkgenerate">Generate By System</label>						
+								</div>
+							</div>
+							
+							 <div class="control-group">	
+								<label class="control-label">Nama Barang</label>
+								<div class="controls">
+									<input type="text" name='nama_barang' class="span9">						
+								</div>
+							</div>
+							<div class="control-group">	
+								<label class="control-label">Tags</label>
+								<div class="controls">
+									<input type='text' name='tags' placeholder='Tag..' class='tagBarang span6'/>
+								</div>
+							</div>
+							
+							<div class="control-group">	
+								<label class="control-label">Is Publish</label>
+								<div class="controls">
+									<label class="checkbox"><input type="checkbox" name="ispublish" value="1" <?php if ($isaktif==1) { echo "checked"; } ?>>Ya</label>
+								</div>
+							</div>
+							
+							 <div class="control-group">
+								<label class="control-label">Is Aktif ?</label>
+								<div class="controls">
+									<label class="checkbox"><input type="checkbox" name="isaktif" value="1" <?php if ($isaktif==1) { echo "checked"; } ?>>Ya</label><br>
+									<input type="hidden" name="hidId" value="<?php echo $id;?>">
+									<input type="submit" name="b_master" value="Submit" class="btn btn-primary">
+								</div>
+							</div>	

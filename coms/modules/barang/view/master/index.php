@@ -27,12 +27,16 @@
 			$i = 1;
 			if($posts > 0){
 				foreach ($posts as $dt): 
-					$str.=	"<tr id='post-".$dt->kategori_id."' data-id='".$dt->kategori_id."' valign=top>
-								<td>".$dt->keterangan."&nbsp;<span class='label label-success'>".$dt->isaktif."</span>
-								";
-					if($dt->ptahap){
-						$str.= "<br><code>Parent: ".$dt->ptahap."</code>";
+					$str.=	"<tr id='post-".$dt->barang_id."' data-id='".$dt->barang_id."' valign=top>
+								<td>".$dt->nama_barang."&nbsp;";
+					if($dt->kode_barang){
+						$str.= "<br><code>".$dt->kode_barang."</code>";
 					}
+					
+					if($dt->brand){
+						$str.= "&nbsp;<em>".$dt->brand."</em>";
+					}
+					
 					$str.= "</td>";
 					$str.= "<td style='min-width: 80px;'>            
 							<ul class='nav nav-pills' style='margin:0;'>
