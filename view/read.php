@@ -4,13 +4,12 @@
 		
 		<div class="span9" style="padding-bottom: 2em;">
 		
-			<fieldset class="content-box" style="margin-top: 1em; padding: 1em 1.5em;">
+			<div class="content-box" style="margin-top: 1em; padding: 1em 1.5em;">
 			<?php //var_dump($content); ?>
 			<h2><?php echo $content->content_title; ?></h2>
 			<?php echo $content->content_content; ?>
-			
-			</fieldset>
-			
+			</div>
+			<hr>
 			<div class="about">
 			<h2>What or Who is BabyAffata.com?</h2>
 			<p>BabyAffata is an award winning baby website, a supplier of baby products and accessories including prams and pushchairs, nursery furnitures, car seats baby cots, baby furnitures, and equipments. We supply all the top brands including Fisher-Price, Peg-Perego, Coco-Latte, Avent by Philips, MacLaren, Graco, and more. We now stock a huge ranga of baby daily equipments, everyday baby equipments, like nappies and foods.</p>

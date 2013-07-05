@@ -28,6 +28,10 @@ body {
 	color: #888;
 }
 
+hr {
+	border-top: 1px solid #ddd;
+}
+
 .accent {
 	background-color: #ff8f50;
 	height: 0.8em;
@@ -130,6 +134,13 @@ ul.menubar li a:hover {
 .container.content {
 	background-color: #f4f4f4;
 }
+.container.content hr {
+	margin-right: 1.5em;
+}
+.container.content p {
+
+}
+
 .sidebar {
 	background: #ebebeb url('../images/bg-sidebar.png') repeat-y right;
 	padding-bottom: 2em;
@@ -240,13 +251,14 @@ ul.menubar li a:hover {
 
 .about {
 	font-size: 0.9em;
-	padding: 1em 2em 0 1em;
+	padding: 0 2em 0 1em;
 }
 .about h2 {
 	font-family: OpenSansCondensed;
 	font-size: 1.3em;
 	margin: 0; padding: 0;
 	letter-spacing: -1px;
+	text-shadow: 0 1px 0 white;
 }
 .about p {
 	margin: 0; padding: 0;
