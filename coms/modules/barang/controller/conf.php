@@ -54,7 +54,7 @@ class barang_conf extends comsmodule {
 		echo $json_response;
 	}
 	
-	function manufacture(){
+	function brand(){
 		if(isset($_GET['term'])){
 			$str = $_GET['term'];
 		}else{
@@ -62,7 +62,7 @@ class barang_conf extends comsmodule {
 		}
 		
 		$mconf 	= new model_conf();
-		$data	= $mconf->get_manufacture($str);
+		$data	= $mconf->get_brand($str);
 		
 		$return_arr = array();
 		

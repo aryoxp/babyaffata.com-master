@@ -1,14 +1,17 @@
 <?php
 $this->head();
 
-if($posts!=""){
+if($posts){
 	$header		= "Edit Product";
 	
 	foreach ($posts as $dt):
-		$parentid  	= $dt->parent_id;
-		$keterangan	= $dt->keterangan;
-		$isaktif	= $dt->is_aktif;
-		$id			= $dt->komponen_id;
+		$barangid  	= $dt->barang_id;
+		$nama		= $dt->nama_barang;
+		$kode		= $dt->kode_barang;
+		$brandid	= $dt->brand_id;
+		$brand		= $dt->brand;
+		$ispublish	= $dt->is_publish;
+		$id			= $dt->barang_id;
 	endforeach;
 	
 	$frmact 	= $this->location('module/barang/master/save');		
@@ -16,11 +19,7 @@ if($posts!=""){
 }else{
 	$header		= "Add Product";
 	$id			= "";
-	$bobot		= "";
-	$parentid  	= "";
-	$keterangan	= "";
-	$urut		= "";
-	$isaktif	= 0;
+	$ispublish	= 0;
 	
 	$frmact 	= $this->location('module/barang/master/save');		
 }
@@ -32,23 +31,22 @@ if($posts!=""){
 	<legend>
 		<a href="<?php echo $this->location('module/barang/master'); ?>" class="btn btn-info pull-right"><i class="icon-list"></i> Products List</a> 
 		<?php if($posts !=""){	?>
-		<a href="<?php echo $this->location('module/barang/master/write'); ?>" class="btn pull-right" style="margin:0px 5px"><i class="icon-pencil"></i> Add Product</a>
+		<a href="<?php echo $this->location('module/barang/master/write'); ?>" class="btn pull-right" style="margin:0px 5px"><i class="icon-pencil"></i> New Product</a>
 		<?php } ?>
 		<?php echo $header; ?>
     </legend> 
     <div class="row-fluid">    
         <div class="span12">
 		
-			<form method=post  action="<?php echo $this->location('module/barang/master/save'); ?>" class="form-horizontal">			
+			<form method=post  action="<?php echo $this->location('module/barang/master/save'); ?>" class="form-horizontal" enctype='multipart/form-data'>			
 				
 			<div class="control-group">
 					<ul class="nav nav-tabs" id="writeTab">
 						<li class="active"><a href="#info">General Info</a></li>
-						<li><a href="#deskripsi">Description</a></li>
-						<li><a href="#harga">Pricing</a></li>
-						<li><a href="#status">Status</a></li>
-						<li><a href="#dimensi">Dimension</a></li>						
-						<li><a href="#gmb">Images</a></li>
+						<li><a href="#deskripsi">Detail Product</a></li>
+						<li><a href="#harga">Price</a></li>
+						<li><a href="#status">Stock</a></li>						
+						<li><a href="#foto">Images</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="info">	
@@ -62,17 +60,17 @@ if($posts!=""){
 							</div>
 							
 							<div class="control-group">	
-								<label class="control-label">Manufacture By</label>
+								<label class="control-label">Brand</label>
 								<div class="controls">
-									<input type="text" name='manufacture' class="span9" id="manufacture">
-									<input type="hidden" name="manufactureid" id="manufacture">									
+									<input type="text" name='brand' class="span9" id="brand" <?php echo $brand; ?>>
+									<input type="hidden" name="brandid" id="brandid" <?php echo $brandid; ?>>									
 								</div>
 							</div>
 							
 							 <div class="control-group">	
 								<label class="control-label">Product Code</label>
 								<div class="controls">
-									<input type="text" name='kode_barang' class="span6" id="kodebarang">	
+									<input type="text" name='kode_barang' class="span6" id="kodebarang" value="<?php echo $kode; ?>">	
 									<label class="checkbox"><input type="checkbox" name="chkgenerate" value="1" id="chkgenerate">Generate By System</label>						
 								</div>
 							</div>
@@ -80,9 +78,17 @@ if($posts!=""){
 							 <div class="control-group">	
 								<label class="control-label">Product Name</label>
 								<div class="controls">
-									<input type="text" name='nama_barang' class="span9">						
+									<input type="text" name='nama_barang' class="span9" value="<?php echo $nama; ?>">						
 								</div>
 							</div>
+                            
+                             <!--<div class="control-group">	
+								<label class="control-label">Alias Name</label>
+								<div class="controls">
+									<input type="text" name='nama_alias' class="span9">						
+								</div>
+							</div>-->
+                            
 							<div class="control-group">	
 								<label class="control-label">Tags</label>
 								<div class="controls">
@@ -93,15 +99,7 @@ if($posts!=""){
 							<div class="control-group">	
 								<div class="controls">									
 									<label class="checkbox inline"><input type="checkbox" name="ispublish" value="1" 
-									<?php if ($isaktif==1) { echo "checked"; } ?>>Publish</label>
-									<label class="checkbox inline"><input type="checkbox" name="isaktif" value="1" 
-									<?php if ($isaktif==1) { echo "checked"; } ?>>Aktif</label>		
-                                    <label class="checkbox inline"><input type="checkbox" name="ispromo" value="1" 
-									<?php if ($isaktif==1) { echo "checked"; } ?>>Promo</label>	
-                                    <label class="checkbox inline"><input type="checkbox" name="ispreorder" value="1" 
-									<?php if ($isaktif==1) { echo "checked"; } ?>>PreOrder</label>		
-                                    <label class="checkbox inline"><input type="checkbox" name="isbaru" value="1" 
-									<?php if ($isaktif==1) { echo "checked"; } ?>>New Product</label>										
+									<?php if ($ispublish==1) { echo "checked"; } ?>>Publish</label>							
 								</div>
 							</div>						
 						</div>
@@ -128,9 +126,9 @@ if($posts!=""){
 							$this->view('master/dimensi.php', $data);										
 							?>
 						</div>
-						<div class="tab-pane" id="gmb">	
+						<div class="tab-pane" id="foto">	
 							<?php 
-							//$this->view('master/harga.php', $data);										
+							$this->view('master/foto.php', $data);										
 							?>
 						</div>
 					</div>

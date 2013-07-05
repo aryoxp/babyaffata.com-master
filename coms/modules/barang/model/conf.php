@@ -8,26 +8,28 @@ class model_conf extends model {
 	
 	/* master kategori barang*/
 	function get_kategori_barang($term = NULL){
-		//$sql= "SELECT kelompok_id as `id`, keterangan as `value` FROM `db_purwandana`.`tbl_kelompok_barang` WHERE keterangan like '%".$term."%' ";
-		$sql = "SELECT `tbl_kelompok_barang`.kelompok_id as `id`, 
+		//$sql= "SELECT kategori_id as `id`, keterangan as `value` FROM `babyaffata`.`tbl_kategori` WHERE keterangan like '%".$term."%' ";
+		$sql = "SELECT `tbl_kategori`.kategori_id as `id`, 
 					CASE 
-						WHEN `b`.`keterangan` like '%".$term."%'  AND `b`.`keterangan` IS NOT NULL THEN 
-							concat(`tbl_kategori_barang`.`keterangan`, ' > ', `b`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kelompok_barang`.`keterangan`)
-						WHEN  `a`.`keterangan` like '%".$term."%'  AND `a`.`keterangan`  IS NOT NULL THEN  
-							concat(`tbl_kategori_barang`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kelompok_barang`.`keterangan`) 
-						WHEN `a`.`keterangan` like '%".$term."%'  OR `a`.`keterangan`  IS  NULL THEN  
-							concat(`tbl_kategori_barang`.`keterangan`, ' > ', `tbl_kelompok_barang`.`keterangan`) 
+						WHEN `tbl_kategori`.parent_id ='0' AND `tbl_kategori`.`keterangan` like '%".$term."%' THEN `tbl_kategori`.`keterangan` 
+						WHEN `b`.`keterangan` like '%".$term."%'  AND `b`.`keterangan` IS NOT NULL AND `b`.parent_id <> 0 THEN 
+							concat(`tbl_kategori`.`keterangan`, ' > ', `b`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kategori`.`keterangan`)
+						WHEN  `a`.`keterangan` like '%".$term."%'  AND `a`.`keterangan`  IS NOT NULL AND `a`.parent_id <> 0 THEN  
+							concat(`tbl_kategori`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kategori`.`keterangan`) 
+						WHEN (`a`.`keterangan` like '%".$term."%'  OR `a`.`keterangan`  IS  NULL) AND `tbl_kategori`.parent_id <> 0 THEN  
+							concat(`tbl_kategori`.`keterangan`, ' > ', `tbl_kategori`.`keterangan`) 
 					END as `value` 
 				FROM
-					`db_purwandana`.`tbl_kelompok_barang`
-				Left Join `db_purwandana`.`tbl_kelompok_barang` AS `a` ON `tbl_kelompok_barang`.`parent_id` = `a`.`kelompok_id`
-				Left Join `db_purwandana`.`tbl_kelompok_barang` AS `b` ON `a`.`parent_id` = `b`.`kelompok_id`
-				Inner Join `db_purwandana`.`tbl_kategori_barang` ON `tbl_kelompok_barang`.`kategori_id` = `tbl_kategori_barang`.`kategori_id`
+					`babyaffata`.`tbl_kategori`
+				Left Join `babyaffata`.`tbl_kategori` AS `a` ON `tbl_kategori`.`parent_id` = `a`.`kategori_id`
+				Left Join `babyaffata`.`tbl_kategori` AS `b` ON `a`.`parent_id` = `b`.`kategori_id`
+				Inner Join `babyaffata`.`tbl_kategori` AS `c` ON `tbl_kategori`.`kategori_id` = `c`.`kategori_id`
 				WHERE 
 					CASE 
-						WHEN `b`.`keterangan` like '%".$term."%'  AND `b`.`keterangan` IS NOT NULL THEN concat(`b`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kelompok_barang`.`keterangan`)
-						WHEN  `a`.`keterangan` like '%".$term."%'  AND `a`.`keterangan`  IS NOT NULL THEN  concat(`a`.`keterangan`, ' > ',  `tbl_kelompok_barang`.`keterangan`) 
-						WHEN `a`.`keterangan` like '%".$term."%'  OR `a`.`keterangan`  IS  NULL THEN   `tbl_kelompok_barang`.`keterangan`
+						WHEN `tbl_kategori`.parent_id ='0' AND `tbl_kategori`.`keterangan` like '%".$term."%' THEN `tbl_kategori`.`keterangan` 
+						WHEN `b`.`keterangan` like '%".$term."%'  AND `b`.`keterangan` IS NOT NULL  AND `b`.parent_id <> 0 THEN concat(`b`.`keterangan`, ' > ', `a`.`keterangan`, ' > ',  `tbl_kategori`.`keterangan`)
+						WHEN  `a`.`keterangan` like '%".$term."%'  AND `a`.`keterangan`  IS NOT NULL AND `a`.parent_id <> 0 THEN  concat(`a`.`keterangan`, ' > ',  `tbl_kategori`.`keterangan`) 
+						WHEN (`a`.`keterangan` like '%".$term."%'  OR `a`.`keterangan`  IS  NULL) AND `tbl_kategori`.parent_id <> 0 THEN   `tbl_kategori`.`keterangan`
 					END IS NOT NULL
 				";
 		$result = $this->db->query( $sql );
@@ -35,16 +37,24 @@ class model_conf extends model {
 		return $result;	
 	}
 	
-	/* master manufacture*/
-	function get_manufacture($term = NULL){
-		$sql= "SELECT manufacture_id as `id`, manufacture_by as `value` FROM `db_purwandana`.`tbl_manufacture` WHERE manufacture_by like '%".$term."%'  ORDER BY manufacture_by ASC";
+	/* master brand*/
+	function get_brand($term = NULL){
+		$sql= "SELECT brand_id as `id`, keterangan as `value` FROM `babyaffata`.`tbl_brand` WHERE keterangan like '%".$term."%'  ORDER BY keterangan ASC";
+		$result = $this->db->query( $sql );
+		
+		return $result;	
+	}
+	
+	/* master detail product*/
+	function get_nama_detail_barang($term = NULL){
+		$sql= "SELECT nama_detail_id as `id`, keterangan as `value` FROM `babyaffata`.`tbl_nama_detail` WHERE keterangan like '%".$term."%'  ORDER BY keterangan ASC";
 		$result = $this->db->query( $sql );
 		
 		return $result;	
 	}
 	
 	function get_dimensi_barang($term = NULL){
-		$sql= "SELECT jenis_dimensi_barang as `id`, jenis_dimensi_barang as `value` FROM `db_purwandana`.`tbl_jenis_dimensi_barang` WHERE jenis_dimensi_barang like '%".$term."%'  ORDER BY jenis_dimensi_barang ASC";
+		$sql= "SELECT jenis_dimensi_barang as `id`, jenis_dimensi_barang as `value` FROM `babyaffata`.`tbl_jenis_dimensi_barang` WHERE jenis_dimensi_barang like '%".$term."%'  ORDER BY jenis_dimensi_barang ASC";
 		$result = $this->db->query( $sql );
 		
 		return $result;
