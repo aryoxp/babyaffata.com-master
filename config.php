@@ -63,3 +63,4 @@ $CONFIG['default_method'] = 'index';
 $CONFIG['secret_key'] = "tH1s/is#4+seCREt/key''couLD bE\\anyThInG";
 
 $CONFIG['maintenance'] = false;
+$CONFIG['page_title'] = 'BabyAffata.com';
