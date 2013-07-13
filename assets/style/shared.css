@@ -276,6 +276,10 @@ ul.menubar li a:hover {
 	color: #628397;
 }
 
+.footer .iconbank {
+    margin: 0 0.5em 1.3em;
+}
+
 @media all and (min-width: 1200px) {
 	.content-header {
 		left: -42px;
