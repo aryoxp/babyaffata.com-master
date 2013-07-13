@@ -8,9 +8,30 @@
 				<div class="header-link"><a href="">Browse Our Products by Brands &raquo;</a></div>
 				Popular Brands
 			</div>
-			<div class="content-box">
-				Brands
+			<div class="content-box" style="border:none">
+                <div id="brand-viewport">
+
+                    <ul id="carousel" class="elastislide-list">
+                        <li><a href="<?php echo $this->location('product/list/brand/baby-appleseed'); ?>">
+                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/baby-appleseed.png'); ?>">
+                            </a></li>
+                        <li><a href="<?php echo $this->location('product/list/brand/cocalo'); ?>">
+                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/cocalo.png'); ?>">
+                            </a></li>
+                        <li><a href="<?php echo $this->location('product/list/brand/boogaboo'); ?>">
+                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/boogaboo.png'); ?>">
+                            </a></li>
+                        <li><a href="<?php echo $this->location('product/list/brand/fisherprice'); ?>">
+                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/fisherprice.png'); ?>">
+                            </a></li>
+                        <li><a href="<?php echo $this->location('product/list/brand/dr-browns'); ?>">
+                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/dr-browns.png'); ?>">
+                            </a></li>
+                    </ul>
+
+                </div>
 			</div>
+
 			<div class="content-header">
 				<div class="header-link"><a href="">Our Best Offers &raquo;</a></div>
 				New Products

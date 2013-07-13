@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <title>Baby Affata &middot; Baby Specialist</title>
@@ -11,6 +14,14 @@
     <link href="<?php echo $this->assets('bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo $this->assets('bootstrap/css/bootstrap-responsive.css'); ?>" rel="stylesheet">
     <link href="<?php echo $this->assets('style/shared.css'); ?>" rel="stylesheet">
+
+    <?php //var_dump($this->get_styles());
+        $styles = $this->get_styles();
+        foreach($styles as $s){
+            echo '<link href="'.$this->assets($s).'" rel="stylesheet">';
+        }
+    ?>
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="<?php echo $this->assets('script/html5shiv.js'); ?>"></script>
@@ -26,6 +37,7 @@
   </head>
 
   <body>
+
   <div class="accent">
   	<div class="container">
   		<div class="row">
