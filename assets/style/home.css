@@ -1,0 +1,21 @@
+.brand-icon {
+    margin: 0.5em 0;
+    padding: 0 0.5em;
+}
+
+.product a {
+    border: none;
+    text-decoration: none;
+}
+
+.product a img {
+    border: 4px solid transparent;
+}
+
+.product a:hover img {
+    border: 4px solid #DDD;
+}
+
+.elastislide-carousel li {
+    width: auto !important;
+}
