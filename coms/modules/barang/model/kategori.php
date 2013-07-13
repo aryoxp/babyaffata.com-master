@@ -28,6 +28,29 @@ class model_kategori extends model {
 	
 		return $result;	
 	}
+
+    function search($key){
+        $key = $this->db->escape($key);
+        $sql = "SELECT
+					mid(md5(`tbl_kategori`.`kategori_id`),5,5) as `id`,
+					`tbl_kategori`.`kategori_id`,
+					`tbl_kategori`.`keterangan`,
+					`tbl_kategori`.`is_publish`,
+					if(`tbl_kategori`.`is_publish`=1,'Publish','') as `ispublish`,
+					`tbl_kategori`.`parent_id`,
+					(SELECT `a`.keterangan FROM `babyaffata`.`tbl_kategori` as `a` WHERE `a`.kategori_id = `tbl_kategori`.`parent_id`) as `ptahap`,
+					(SELECT `b`.keterangan FROM  `babyaffata`.`tbl_kategori` as `b` WHERE `b`.kategori_id = `tbl_kategori`.`kategori_id`) as `kategori`
+					FROM
+					`babyaffata`.`tbl_kategori`
+					WHERE
+					`tbl_kategori`.`kategori_id` LIKE '%$key%'
+					OR `tbl_kategori`.`keterangan` LIKE '%$key%'
+					LIMIT 100
+					";
+        $result = $this->db->query( $sql ); //var_dump($this->db);
+
+        return $result;
+    }
 	
 	
 	function get_kategori(){

@@ -15,14 +15,14 @@ if($posts!=""){
 	$frmact 	= $this->location('module/barang/kategori/save');		
 	
 }else{
+
 	$header		= "New Product Category";
 	$id			= "";
 	$parentid  	= "";
 	$kategoriid	= "";
 	$keterangan	= "";
 	$isaktif	= 0;
-	$ispublish	= 0;
-	
+	$ispublish	= 1;
 	$frmact 	= $this->location('module/barang/kategori/save');		
 }
 
@@ -32,7 +32,7 @@ if($posts!=""){
 <div class="container-fluid">  
 	
 	<legend>
-		<a href="<?php echo $this->location('module/barang/kategori'); ?>" class="btn btn-info pull-right"><i class="icon-list"></i> Product Categories</a> 
+		<a href="<?php echo $this->location('module/barang/kategori'); ?>" class="btn btn-info pull-right"><i class="icon-list icon-white"></i> Product Categories</a>
 		<?php if($posts !=""){	?>
 		<a href="<?php echo $this->location('module/barang/kategori/write'); ?>" class="btn pull-right" style="margin:0px 5px"><i class="icon-pencil"></i> Write Product Category</a>
 		<?php } ?>
@@ -49,7 +49,7 @@ if($posts!=""){
 					<label class="control-label">Parent Category</label>
 					<div class="controls">
 						<select name="cmbsub">
-							<option value="0">Please Select..</option>						
+							<option value="0">Select Parent Category...</option>
 							<?php							
 																								
 								foreach($kategori as $dt):
@@ -66,23 +66,28 @@ if($posts!=""){
 								endforeach;
 							?>
 						</select>
+                        <span class="help-block">Select a parent category of this category if this category is not a main category, otherwise leave it blank.</span>
 					</div>
 				</div>
 				
 				<div class="control-group">	
-					<label class="control-label">Description</label>
+					<label class="control-label">Category Name</label>
 					<div class="controls">
-						<textarea name='keterangan' class="span9" rows="4"><?php echo $keterangan; ?></textarea>
+						<input type="text" name='keterangan' class="span9" rows="4" value="<?php echo $keterangan; ?>">
+                        <span class="help-block">The displayed name of the category.</span>
 					</div>
 				</div>
 				
 								
 				 <div class="control-group">
-					<label class="control-label"></label>
+					<label class="control-label">Is Category Active?</label>
 					<div class="controls">
-						<label class="checkbox inline"><input type="checkbox" name="ispublish" value="1" <?php if ($ispublish==1) { echo "checked"; } ?>>Publish</label><br />
+						<label class="checkbox inline"><input type="checkbox" name="ispublish" value="1" <?php if ($ispublish==1) { echo "checked"; } ?>>Active</label>
+                        <span class="help-block"><em>Active categeories will be shown and accessible publicly.</em></span>
+                        <br />
 						<input type="hidden" name="hidId" value="<?php echo $id;?>">
-						<input type="submit" name="b_kategori" value="Submit" class="btn btn-primary">
+                        <hr>
+						<input type="submit" name="b_kategori" value="Save" class="btn btn-primary">
 					</div>
 				</div>				
 			</form>

@@ -6,29 +6,36 @@ class barang_kategori extends comsmodule {
 	function __construct($coms) {
 		parent::__construct($coms);
 		$this->coms = $coms;
-		
 		$coms->require_auth('auth'); 
 	}
 	
 	function index($by = 'all', $keyword = NULL, $page = 1, $perpage = 500){
-		$mkategori = new model_kategori();		
-		
-		$data['posts'] = $mkategori->read('');	
-		
-		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
-		$this->coms->add_script('js/datatables/jquery.dataTables.js');	
-		$this->coms->add_script('js/datatables/DT_bootstrap.js');	
 
+        if(isset( $_GET['q'] ))
+            $keyword = trim($_GET['q']);
+
+		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
+		//$this->coms->add_script('js/datatables/jquery.dataTables.js');
+		//$this->coms->add_script('js/datatables/DT_bootstrap.js');
 		$this->coms->add_script('js/jsform.js');
-		
-		switch($by){
-			case 'ok';
+		$data = array();
+        $mkategori = new model_kategori();
+        switch($by){
+            case 'search':
+                $data['posts'] = $mkategori->search($keyword);
+                break;
+            case 'all':
+                $data['posts'] = $mkategori->read('');
+                break;
+            case 'ok':
 				$data['status'] 	= 'OK';
 				$data['statusmsg']  = 'OK, data telah diupdate.';
+                $data['posts'] = $mkategori->read('');
 			break;
-			case 'nok';
+            case 'nok':
 				$data['status'] 	= 'Not OK';
-				$data['statusmsg']  = 'Maaf, data tidak dapat tersimpan.';
+				$data['statusmsg']  = 'Maaf, data tidak dapat disimpan.';
+                $data['posts'] = $mkategori->read('');
 			break;
 		}
 		
@@ -69,9 +76,8 @@ class barang_kategori extends comsmodule {
 	
 		if(isset($_POST['b_kategori'])!=""){
 			$this->saveToDB();
-			exit();
-		}else{
-			$this->index();
+		} else {
+            $this->redirect('coms/module/barang/kategori'); // prev: $this->index();
 			exit;
 		}
 	
@@ -113,11 +119,10 @@ class barang_kategori extends comsmodule {
 		if($keterangan){
 			$datanya 	= Array('kategori_id'=>$kode, 'parent_id'=>$subkategori, 'keterangan'=>$keterangan,  'is_publish'=>$ispublish);
 			$mkategori->replace_kategori($datanya);
-			
-			$this->index('ok');
+			$this->redirect('module/barang/kategori/index/ok');
 			exit();
 		}else{
-			$this->index('nok');
+			$this->redirect('module/barang/kategori/index/nok');
 			exit();
 		}
 	}
