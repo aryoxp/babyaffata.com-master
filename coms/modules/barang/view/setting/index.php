@@ -16,7 +16,7 @@
 	
     if( isset($posts) ) :
     ?>
-    <table class='table table-hover' id='example' data-id='module/barang/brand'>
+    <table class='table table-hover' id='example' data-id='module/barang/setting'>
         <thead>
             <tr>
                 <th>Detail</th>

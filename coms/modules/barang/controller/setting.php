@@ -110,7 +110,7 @@ class barang_setting extends comsmodule {
 		
 		$datanya=array('nama_detail_id'=>$id);
 				
-		if($msetting->delete_setting($datanya))
+		if($msetting->delete_nama_detail($datanya))
 			$result['status'] = "OK";
 		else {
 			$result['status'] = "NOK";

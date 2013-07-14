@@ -5,10 +5,10 @@ $(function(){
 		var pid = $(this).parents('tr').data("id");
 		var mod	= $(this).parents('table').data("id");
 		
-		if(confirm("Delete this post? Once done, this action can not be undone.")) {
+		if(confirm("Delete this entry? Once done, this action can not be undone.")) {
 		
 		var row = $(this).parents('tr');
-				
+
 		$.post(
 			base_url + mod + '/delete',
 			{id: pid},
