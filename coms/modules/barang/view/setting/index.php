@@ -1,60 +1,57 @@
 <?php $this->head(); ?>
 <fieldset>
-	<legend><a href="<?php echo $this->location('module/barang/setting/write'); ?>" class="btn btn-primary pull-right">
-    <i class="icon-pencil icon-white"></i> New Detail Product</a> Detail Product List
-	</legend>
+	<legend>Detail Information Category of Product</legend>
+
+    <div class="well well-small">
+        <a href="<?php echo $this->location('module/barang/setting/write'); ?>" class="btn btn-small btn-primary">
+            <i class="icon-plus-sign icon-white"></i> New Detail</a>
+    </div>
 	
-	 <?php
-	 
-	 if(isset($status) and $status) : ?>
-		<div class="alert alert-success">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo $statusmsg; ?>
-		</div>
-	<?php 
-	endif; 
+    <?php if(isset($status) and $status) : ?>
+        <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo $statusmsg; ?>
+        </div>
+    <?php endif;
 	
-	 if( isset($posts) ) :	
-		$str="<table class='table table-hover' id='example' data-id='module/barang/brand'>
-				<thead>
-					<tr>						
-						<th>Detail</th>
-						<th>Act</th>
-					</tr>
-				</thead>
-				<tbody>";
-		
-			$i = 1;
-			if($posts > 0){
-				foreach ($posts as $dt): 
-					$str.=	"<tr id='post-".$dt->nama_detail_id."' data-id='".$dt->nama_detail_id."' valign=top>
-							<td>".$dt->keterangan."</td>";
-					$str.= "<td style='min-width: 80px;'>            
-							<ul class='nav nav-pills' style='margin:0;'>
-								<li class='dropdown'>
-								  <a class='dropdown-toggle' id='drop4' role='button' data-toggle='dropdown' href='#'>Action <b class='caret'></b></a>
-								  <ul id='menu1' class='dropdown-menu' role='menu' aria-labelledby='drop4'>
-									<li>
-										<a class='btn-edit-post' href=".$this->location('module/barang/brand/edit/'.$dt->id)."><i class='icon-pencil'></i> Edit</a>	
-									</li>
-									<li>
-										<a class='btn-delete-post'><i class='icon-remove'></i> Delete</a>
-									</li>
-								  </ul>
-								</li>
-							</ul>
-						</td></tr>";
-				 endforeach; 
-			 }
-		$str.= "</tbody></table>";
-		
-		echo $str;
-	
-	 else: 
-	 ?>
+    if( isset($posts) ) :
+    ?>
+    <table class='table table-hover' id='example' data-id='module/barang/brand'>
+        <thead>
+            <tr>
+                <th>Detail</th>
+                <th style="width: 150px">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    <?php
+    $i = 1;
+    if($posts > 0){
+        foreach ($posts as $dt):
+        ?>
+            <tr id="post-<?php echo $dt->nama_detail_id; ?>" data-id="<?php echo $dt->nama_detail_id; ?>"
+                valign="top">
+                <td><?php echo $dt->nama_detail; ?></td>
+                <td style="min-width: 80px;">
+                    <a class="btn btn-small btn-edit-post"
+                       href="<?php echo $this->location('module/barang/setting/edit/'.$dt->id); ?>">
+                        Edit</a>
+                    <a class='btn btn-small btn-danger btn-delete-post'>
+                        <i class='icon-remove'></i> Delete</a>
+                </td>
+            </tr>
+        <?php endforeach;
+    }
+    ?>
+    </tbody></table>
+    <?php else: ?>
     <div class="span3" align="center" style="margin-top:20px;">
 	    <div class="well">Sorry, no content to show</div>
     </div>
     <?php endif; ?>
+    <div class="well well-small">
+        <a href="<?php echo $this->location('module/barang/setting/write'); ?>" class="btn btn-small btn-primary">
+            <i class="icon-plus-sign icon-white"></i> New Detail</a>
+    </div>
 </fieldset>
 <?php $this->foot(); ?>

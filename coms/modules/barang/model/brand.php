@@ -28,7 +28,8 @@ class model_brand extends model {
 	
 	
 	function replace_brand($datanya) {
-		$result= $this->db->replace('babyaffata`.`tbl_brand',$datanya);
+
+		$result= $this->db->replace('babyaffata`.`tbl_brand',$datanya); //var_dump($datanya); //var_dump($this->db);
 		return $result;
 	}
 	

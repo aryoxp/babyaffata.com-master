@@ -1,8 +1,7 @@
-<?php
-$this->head();
+<?php $this->head();
 
 if($posts!=""){
-	$header		= "Edit brand ";
+	$header		= "Edit Brand Name";
 	
 	foreach ($posts as $dt):
 		$keterangan	= $dt->keterangan;
@@ -12,7 +11,7 @@ if($posts!=""){
 	$frmact 	= $this->location('module/barang/brand/save');		
 	
 }else{
-	$header		= "Write brand ";
+	$header		= "New Brand Name";
 	$id			= "";
 	$bobot		= "";
 	$parentid  	= "";
@@ -25,7 +24,11 @@ if($posts!=""){
 
 
 ?>
-
+<style type="text/css">
+    input[type=file]{
+        position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;
+    }
+</style>
 <div class="container-fluid">  
 	
 	<legend>
@@ -40,30 +43,31 @@ if($posts!=""){
 		
 			<form method=post  action="<?php echo $this->location('module/barang/brand/save'); ?>" class="form-horizontal" enctype='multipart/form-data'>				
 				 <div class="control-group">	
-					<label class="control-label">Brand</label>
+					<label class="control-label">Brand Name</label>
 					<div class="controls">
-						<textarea name='brand' class="span9" rows="4"><?php echo $keterangan; ?></textarea>
+						<input type="text" name="brand" class="span9" rows="4" value="<?php echo $keterangan; ?>">
 					</div>
 				</div>
 				
 				<div class="control-group">	
 					<label class="control-label">Logo</label>
-					<div class="controls">
-						<input type="file" name="file" id="file">
+					<div class="controls" style="position: relative">
+                        <a href="#" class="btn">
+                            Upload Brand Logo
+                            <input type="file" name="file" id="file" onchange="$('#upload-file-info').html($(this).val());">
+                        </a>
+                        <span class='label label-info' id="upload-file-info"></span>
 					</div>
 				</div>
 				
 				 <div class="control-group">					
 					<div class="controls">						
 						<input type="hidden" name="hidId" value="<?php echo $id;?>">
-						<input type="submit" name="b_brand" value="Submit" class="btn btn-primary">
+						<input type="submit" name="b_brand" value="Save" class="btn btn-primary">
 					</div>
 				</div>				
 			</form>
 		</div>
 	</div>
 </div>
-<?php
-$this->foot();
-
-?>
+<?php $this->foot(); ?>

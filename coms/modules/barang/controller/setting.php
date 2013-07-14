@@ -15,9 +15,9 @@ class barang_setting extends comsmodule {
 		
 		$data['posts'] = $msetting->read();	
 		
-		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
-		$this->coms->add_script('js/datatables/jquery.dataTables.js');	
-		$this->coms->add_script('js/datatables/DT_bootstrap.js');	
+		//$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
+		//$this->coms->add_script('js/datatables/jquery.dataTables.js');
+		//$this->coms->add_script('js/datatables/DT_bootstrap.js');
 
 		$this->coms->add_script('js/jsform.js');
 		
@@ -67,7 +67,7 @@ class barang_setting extends comsmodule {
 			$this->saveToDB();
 			exit();
 		}else{
-			$this->index();
+			$this->redirect('module/barang/setting'); //$this->index();
 			exit;
 		}
 	
@@ -83,7 +83,7 @@ class barang_setting extends comsmodule {
 		
 		$setting	= $_POST['nama_detail'];
 		
-		$datanya 	= Array('keterangan'=>$setting);
+		$datanya 	= Array('nama_detail'=>$setting);
 			
 								
 		if($_POST['hidId']){
@@ -93,8 +93,9 @@ class barang_setting extends comsmodule {
 		}else{
 			$msetting->replace_nama_detail($datanya);
 		}
-		
-		$this->index('ok');			
+
+        $this->redirect('module/barang/setting/index/ok'); //$this->index('ok');
+        exit;
 	
 	}
 	

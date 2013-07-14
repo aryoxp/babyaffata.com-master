@@ -13,13 +13,13 @@
     endif;
 
     ?>
-    <form class="form-search well" action="<?php echo $this->location('module/barang/kategori/index/search'); ?>">
+    <form class="form-search well well-small" action="<?php echo $this->location('module/barang/kategori/index/search'); ?>">
         <div class="input-append">
             <input type="text" name="q" class="span2 search-query">
             <button type="submit" class="btn">Search</button>
         </div>
         <a href="<?php echo $this->location('module/barang/kategori/write'); ?>" class="btn btn-primary pull-right">
-            <i class="icon-pencil icon-white"></i> New Category</a>
+            <i class="icon-plus-sign icon-white"></i> New Category</a>
     </form>
     <?php
 
@@ -66,9 +66,9 @@
         }
     ?>
 		</tbody></table>
-        <div class="well">
-        <a href="<?php echo $this->location('module/barang/kategori/write'); ?>" class="btn btn-primary">
-            <i class="icon-pencil icon-white"></i> New Category</a>
+        <div class="well well-small">
+        <a href="<?php echo $this->location('module/barang/kategori/write'); ?>" class="btn btn-mini btn-primary">
+            <i class="icon-plus-sign icon-white"></i> New Category</a>
         </div>
         <?php
 	 else:

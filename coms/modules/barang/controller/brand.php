@@ -15,9 +15,9 @@ class barang_brand extends comsmodule {
 		
 		$data['posts'] = $mbrand->read('');	
 		
-		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
-		$this->coms->add_script('js/datatables/jquery.dataTables.js');	
-		$this->coms->add_script('js/datatables/DT_bootstrap.js');	
+		//$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
+		//$this->coms->add_script('js/datatables/jquery.dataTables.js');
+		//$this->coms->add_script('js/datatables/DT_bootstrap.js');
 
 		$this->coms->add_script('js/jsform.js');
 		
@@ -99,11 +99,12 @@ class barang_brand extends comsmodule {
 				
 				
 				
-				if (($extension != "png") && ($extension != "jpg") && ($extension != "jpeg")){ 
+				if (($extension != "png") && ($extension != "jpg")
+                    && ($extension != "jpeg") && ($extension != "gif")){
 					$result['error'] = "Unknown extension! Please upload image only";
 					print "<script> alert('Unknown extension! Please upload image only'); </script>"; 
 					$errors=1; 
-					
+
 					$this->index();
 					exit();
 					
@@ -128,8 +129,15 @@ class barang_brand extends comsmodule {
 				
 				$dirbig 	= "assets/uploads/file/brand";
 				$dirsmall 	= "assets/uploads/file/brand/thumb";
-				
-				
+				$base = getcwd();
+				//mkdir($base."/".$dirbig);
+                @chmod($base."/assets", 0777);
+                @mkdir($base."/assets/uploads");
+                @mkdir($base."/assets/uploads/file");
+                @mkdir($base."/assets/uploads/file/brand");
+                @mkdir($base."/assets/uploads/file/brand/thumb");
+                //mkdir($base."/".$dirsmall);
+
 				if(!file_exists($dirbig) OR !is_dir($dirbig)){
 					mkdir($dirbig, 0777, true);         
 				} 
@@ -140,29 +148,34 @@ class barang_brand extends comsmodule {
 				
 				list($width,$height)=getimagesize($uploadedfile);
 
-				$newwidth=60;
-				$newheight=($height/$width)*$newwidth;
-				$tmp=imagecreatetruecolor($newwidth,$newheight);				
-				
-				imagecopyresampled($tmp,$src,0,0,0,0,$newwidth,$newheight,$width,$height);						
+				//$newwidth=60;
+				//$newheight=($height/$width)*$newwidth;
+                $newheight = 64;
+                $newwidth = ($width/$height)*$newheight;
+				$tmp=imagecreatetruecolor($newwidth,$newheight);
+                imagealphablending($tmp,false);
+                imagesavealpha($tmp,true);
+                $transparent = imagecolorallocatealpha($tmp, 255, 255, 255, 127);
+                imagefilledrectangle($tmp, 0, 0, $newwidth, $newheight, $transparent);
+                imagecopyresampled($tmp,$src,0,0,0,0,$newwidth,$newheight,$width,$height);
 				
 				$newname = "assets/uploads/file/brand/". $big;
 				$copied = move_uploaded_file($_FILES['file']['tmp_name'], $newname); 
 				
 				$thumbname = "assets/uploads/file/brand/thumb/". $small;
-				imagejpeg($tmp,$thumbname,100);
+				imagepng($tmp,$thumbname);
 				
 				if (!$copied){  
 					print "<script> alert('Copy unsuccessfull!'); </script>"; 
 					$errors=1; 
 					
-					$this->index();
+					$this->redirect('module/barang/brand'); // $this->index();
 					exit();
 				}					
 				
-				$datanya 	= Array('keterangan'=>$brand, 'logo'=>$newname,'logo_thumb'=>$thumbname, 'user_id'=>$user, 'last_update'=>$lastupdate);
+				$datanya 	= array('keterangan'=>$brand, 'logo'=>$newname,'logo_thumb'=>$thumbname, 'user_id'=>$user, 'last_update'=>$lastupdate);
 			}else{
-				$datanya 	= Array('keterangan'=>$brand, 'user_id'=>$user, 'last_update'=>$lastupdate);
+				$datanya 	= array('keterangan'=>$brand, 'user_id'=>$user, 'last_update'=>$lastupdate);
 			}
 								
 			if($_POST['hidId']){

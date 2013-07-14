@@ -9,7 +9,7 @@ class model_setting extends model {
 		$sql = "SELECT
 					mid(md5(`tbl_nama_detail`.`nama_detail_id`),5,5) as `id`,
 					`tbl_nama_detail`.`nama_detail_id`,
-					`tbl_nama_detail`.`keterangan`
+					`tbl_nama_detail`.`nama_detail`
 					FROM
 					`babyaffata`.`tbl_nama_detail`
 					WHERE 1=1 
@@ -18,7 +18,7 @@ class model_setting extends model {
 			$sql=$sql . " AND mid(md5(`tbl_nama_detail`.`nama_detail_id`),5,5)='".$id."' ";
 		}
 		
-		$sql = $sql . "ORDER BY `tbl_nama_detail`.`keterangan` ASC";
+		$sql = $sql . "ORDER BY `tbl_nama_detail`.`nama_detail` ASC";
 		$result = $this->db->query( $sql );
 	
 		return $result;	
@@ -26,7 +26,7 @@ class model_setting extends model {
 	
 	
 	function replace_nama_detail($datanya) {
-		$result= $this->db->replace('babyaffata`.`tbl_nama_detail',$datanya);
+		$result= $this->db->replace('babyaffata`.`tbl_nama_detail', $datanya); var_dump($datanya); var_dump($this->db);
 		return $result;
 	}
 	

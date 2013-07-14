@@ -2,20 +2,21 @@
 $this->head();
 
 if($posts!=""){
-	$header		= "Edit Detail Product ";
+
+	$header		= "Edit Information Detail Category of Product ";
 	
 	foreach ($posts as $dt):
-		$keterangan	= $dt->keterangan;
-		$id			= $dt->nama_detail_id;
+		$nama_detail	= $dt->nama_detail;
+		$id			    = $dt->nama_detail_id;
 	endforeach;
 	
 	$frmact 	= $this->location('module/barang/setting/save');		
 	
 }else{
-	$header		= "Write Detail Product ";
-	$id			= "";
-	$keterangan	= "";
-	
+	$header		    = "Write Detail Product ";
+	$id			    = "";
+	$nama_detail	= "";
+
 	$frmact 	= $this->location('module/barang/setting/save');		
 }
 
@@ -24,13 +25,19 @@ if($posts!=""){
 
 <div class="container-fluid">  
 	
-	<legend>
-		<a href="<?php echo $this->location('module/barang/setting'); ?>" class="btn btn-info pull-right"><i class="icon-list"></i> Detail Product List</a> 
-		<?php if($posts !=""){	?>
-		<a href="<?php echo $this->location('module/barang/setting/write'); ?>" class="btn pull-right" style="margin:0px 5px"><i class="icon-pencil"></i> Write Detail Product</a>
-		<?php } ?>
-		<?php echo $header; ?>
-    </legend> 
+	<legend><?php echo $header; ?></legend>
+
+    <div class="well well-small">
+        <a href="<?php echo $this->location('module/barang/setting'); ?>"
+           class="btn btn-small btn-info">
+            <i class="icon-list icon-white"></i> Detail Category List</a>
+        <?php if($posts !=""){	?>
+        <a href="<?php echo $this->location('module/barang/setting/write'); ?>"
+           class="btn btn-small btn-primary">
+            <i class="icon-plus-sign icon-white"></i> New Detail Category</a>
+        <?php } ?>
+    </div>
+
     <div class="row-fluid">    
         <div class="span12">
 		
@@ -38,7 +45,7 @@ if($posts!=""){
 				 <div class="control-group">	
 					<label class="control-label">Detail Product</label>
 					<div class="controls">
-						<textarea name='nama_detail' class="span9" rows="4"><?php echo $keterangan; ?></textarea>
+						<input type="text" name='nama_detail' class="span9" rows="4" value="<?php echo $nama_detail; ?>">
 					</div>
 				</div>
 				
@@ -52,6 +59,18 @@ if($posts!=""){
 			</form>
 		</div>
 	</div>
+
+    <div class="well well-small">
+        <a href="<?php echo $this->location('module/barang/setting'); ?>"
+           class="btn btn-small btn-info">
+            <i class="icon-list icon-white"></i> Detail Category List</a>
+        <?php if($posts !=""){	?>
+            <a href="<?php echo $this->location('module/barang/setting/write'); ?>"
+               class="btn btn-small btn-primary">
+                <i class="icon-plus-sign icon-white"></i> New Detail Category</a>
+        <?php } ?>
+    </div>
+
 </div>
 <?php
 $this->foot();
