@@ -20,7 +20,10 @@ if($posts){
 	$header		= "Add Product";
 	$id			= "";
 	$ispublish	= 0;
-	
+	$kode       = "";
+    $nama       = "";
+    $brand      = "";
+    $brandid      = "";
 	$frmact 	= $this->location('module/barang/master/save');		
 }
 

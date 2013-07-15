@@ -15,9 +15,9 @@ class barang_master extends comsmodule {
 		
 		$data['posts'] = $mmaster->read();	
 		
-		$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
-		$this->coms->add_script('js/datatables/jquery.dataTables.js');	
-		$this->coms->add_script('js/datatables/DT_bootstrap.js');	
+		//$this->coms->add_style('css/bootstrap/DT_bootstrap.css');
+		//$this->coms->add_script('js/datatables/jquery.dataTables.js');
+		//$this->coms->add_script('js/datatables/DT_bootstrap.js');
 
 		$this->coms->add_script('js/jsform.js');
 		
@@ -95,7 +95,7 @@ class barang_master extends comsmodule {
 			$this->saveToDB();
 			exit();
 		}else{
-			$this->index();
+            $this->redirect('module/barang/master');
 			exit;
 		}
 	
@@ -217,11 +217,11 @@ class barang_master extends comsmodule {
 				
 											
 				unset($_POST['b_master']);
-				$this->index('ok');
+                $this->redirect('module/barang/master/index/ok'); //$this->index('ok');
 				exit();
 				
 			}else{
-				$this->index('nok');
+				$this->redirect('module/barang/master/index/nok'); //$this->index('nok');
 				exit();
 			}
 		}
@@ -285,9 +285,9 @@ class barang_master extends comsmodule {
 			if (($extension != "png") && ($extension != "jpg") && ($extension != "jpeg")){ 
 				$result['error'] = "Unknown extension! Please upload image only";
 				print "<script> alert('Unknown extension! Please upload image only'); </script>"; 
-				$errors=1; 
-				
-				$this->index();
+				$errors=1;
+
+                $this->redirect('module/barang/master'); //$this->index();
 				exit();
 				
 			}
@@ -337,9 +337,9 @@ class barang_master extends comsmodule {
 			
 			if (!$copied){  
 				print "<script> alert('Copy unsuccessfull!'); </script>"; 
-				$errors=1; 
-				
-				$this->index();
+				$errors=1;
+
+                $this->redirect('module/barang/master'); //$this->index();
 				exit();
 			}					
 			
