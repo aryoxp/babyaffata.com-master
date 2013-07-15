@@ -92,12 +92,14 @@ class barang_brand extends comsmodule {
 			if($sfile){
 				$filename = stripslashes(@$_FILES['file']['name']); 
 				$extension = $this->getExtension($filename); 
-				$extension = strtolower($extension); 
-				
-				$big		= trim(preg_replace('/[ \/]/', '-', (preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 \/]/', '', strtolower($brand)))))).".".$extension;
+				$extension = strtolower($extension);
+
+                $key        = trim(preg_replace('/[ \/]/', '-', (preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 \/]/', '', strtolower($brand))))));
+				$big		= $key.".".$extension;
+
 				$small		= "thumb-".$big;
 				
-				
+				//var_dump($key); exit;
 				
 				if (($extension != "png") && ($extension != "jpg")
                     && ($extension != "jpeg") && ($extension != "gif")){
@@ -159,10 +161,10 @@ class barang_brand extends comsmodule {
                 imagefilledrectangle($tmp, 0, 0, $newwidth, $newheight, $transparent);
                 imagecopyresampled($tmp,$src,0,0,0,0,$newwidth,$newheight,$width,$height);
 				
-				$newname = "assets/uploads/file/brand/". $big;
+				$newname = $dirbig . "/" . $big;
 				$copied = move_uploaded_file($_FILES['file']['tmp_name'], $newname); 
 				
-				$thumbname = "assets/uploads/file/brand/thumb/". $small;
+				$thumbname = $dirsmall . "/" . $small;
 				imagepng($tmp,$thumbname);
 				
 				if (!$copied){  
@@ -173,9 +175,20 @@ class barang_brand extends comsmodule {
 					exit();
 				}					
 				
-				$datanya 	= array('keterangan'=>$brand, 'logo'=>$newname,'logo_thumb'=>$thumbname, 'user_id'=>$user, 'last_update'=>$lastupdate);
+				$datanya 	= array(
+                    'brand_key'=>$key,
+                    'keterangan'=>$brand,
+                    'logo'=>$newname,
+                    'logo_thumb'=>$thumbname,
+                    'user_id'=>$user,
+                    'last_update'=>$lastupdate
+                );
 			}else{
-				$datanya 	= array('keterangan'=>$brand, 'user_id'=>$user, 'last_update'=>$lastupdate);
+				$datanya 	= array(
+                    'keterangan'=>$brand,
+                    'user_id'=>$user,
+                    'last_update'=>$lastupdate
+                );
 			}
 								
 			if($_POST['hidId']){

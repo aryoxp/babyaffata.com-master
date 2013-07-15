@@ -1,0 +1,28 @@
+/* Necessary CSS */
+
+.slider    { overflow:hidden; position:relative; margin: 5px; }
+.slider ul { margin:0; padding:0; white-space: nowrap; }
+.slider li { margin:5px 5px; list-style:none; display: inline-block; }
+
+/* IE6 issues */
+.slider ul { width:100%; }
+
+/* Styling */
+
+.slide-nav {
+    width: 23px; height: 23px;
+    border-radius: 12px;
+    margin: 10px;
+    margin-top: 36px;
+    cursor: pointer;
+}
+
+.slide-nav-prev {
+    float: left;
+    background-position: 4px 3px;
+}
+
+.slide-nav-next {
+    float: right;
+    background-position: 4px -17px;
+}

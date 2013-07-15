@@ -8,6 +8,19 @@
 
 $(function() {
     // Handler for .ready() called.
-    $('#carousel').elastislide();
+});
+
+$(window).load(function(){
+    $( '#brand-slider' ).lemmonSlider({
+        'infinite' : true
+    });
+
+    $('.next-page').click(function(){
+        $( '#brand-slider').trigger('nextPage');
+    });
+
+    $('.prev-page').click(function(){
+        $( '#brand-slider').trigger('prevPage');
+    });
 });
 
