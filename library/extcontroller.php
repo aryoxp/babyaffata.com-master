@@ -19,16 +19,17 @@ class extcontroller extends controller {
     }
 
     public function head() {
-
+        /*
         $navbar['user'] = $this->authenticatedUser;   //$this->session->get("user");
         $navbar['modules'] = $this->comsmodules;
 
         $navbar['userid'] = $this->authenticatedUser->username;
         $navbar['role']   = $this->authenticatedUser->role;
+        */
+        $mkat = new model_kategori();
+        $head['kategoris'] = $mkat->getAllKategori();
 
-        $this->view('header.php');
-        $this->view('navbar.php', $navbar);
-        $this->view('sidebar.php', array('modules'=>$this->comsmodules));
+        $this->view('header.php', $head);
     }
 
     public function foot() {

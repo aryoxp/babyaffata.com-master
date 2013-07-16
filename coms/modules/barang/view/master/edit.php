@@ -1,7 +1,7 @@
-<?php
-$this->head();
+<?php $this->head();
 
-if($posts){
+if($posts) {
+
 	$header		= "Edit Product";
 	
 	foreach ($posts as $dt):
@@ -16,7 +16,7 @@ if($posts){
 	
 	$frmact 	= $this->location('module/barang/master/save');		
 	
-}else{
+} else {
 	$header		= "Add Product";
 	$id			= "";
 	$ispublish	= 0;
@@ -26,7 +26,6 @@ if($posts){
     $brandid      = "";
 	$frmact 	= $this->location('module/barang/master/save');		
 }
-
 
 ?>
 
@@ -106,12 +105,11 @@ if($posts){
 								</div>
 							</div>						
 						</div>
+
 						<div class="tab-pane" id="deskripsi">
-							<?php 
-							$this->view('master/deskripsi.php', $data);										
-							?>
+							<?php $this->view('master/deskripsi.php', $data); ?>
 						</div>
-						
+
 						<div class="tab-pane" id="status">
 							<?php 
 							$this->view('master/status.php', $data);										
@@ -149,7 +147,4 @@ if($posts){
 		</div>
 	</div>
 </div>
-<?php
-$this->foot();
-
-?>
+<?php $this->foot(); ?>

@@ -20,6 +20,12 @@ class barang_home extends comsmodule {
 		$this->view( 'home.php', $data );
 		$this->foot();
 	}
+
+    function settings() {
+        $this->head();
+        $this->view('conf/settings.php');
+        $this->foot();
+    }
 	
 	
 }

@@ -1,4 +1,4 @@
-<div class="span4 product-box">
+<div class="span3 product-box">
 
 	<div class="product-image">
 		<img src="<?php echo $this->assets('images/product.jpg'); ?>" alt="" />

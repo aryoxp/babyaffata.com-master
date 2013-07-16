@@ -74,8 +74,57 @@
   </div>
   
   <div class="container" style="background-color: #a9cacf;">
-  	<ul class="menubar">
-  		<li><a href="<?php echo $this->location(NULL, false); ?>">Home</a></li>
+      <div class="menu-button">Menu</div>
+      <ul class="menubar flexnav" data-breakpoint="800">
+  		<li><a href="<?php echo $this->location(NULL, false); ?>">
+                <img src="<?php echo $this->asset('images/icon-home.png'); ?>" alt="Home" style="width: 20px">
+  		</a></li>
+        <?php //var_dump($kategoris);
+
+        function getChildKategori($kategori, $kategoris, $level, $coms) {
+            $kategori = new kategori($kategori);
+
+            $shown = false;
+            foreach( $kategoris as $k ){
+                if($k->parent_id != 0 and $k->parent_id == $kategori->kategori_id) {
+                    $k = new kategori($k);
+                    if(!$shown) {
+                        $level++;
+                        echo "\n\t".'<ul class="deep">';
+                        $shown = true;
+                    }
+                    echo "\n\t\t".'<li><a href="'.$coms->location('product/list/kategori/'.$k->kategori_key).'">'.$k->keterangan.'</a>';
+                    $k = getChildKategori($k, $kategoris, $level, $coms);
+                    $kategori->addChild($k);
+                    echo '</li>';
+
+                }
+            }
+            if($shown) {
+                echo '</ul>';
+                $level--;
+            }
+
+            return $kategori;
+        }
+
+        $level=0;
+        $kats = array();
+        //echo '<ul class="">';
+        foreach($kategoris as $k) {
+            if($k->parent_id == 0) {
+                echo '<li><a href="'.$this->location('product/list/kategori/'.$k->kategori_key).'">'.$k->keterangan.'</a>';
+                $k = getChildKategori($k, $kategoris, $level, $this);
+                $kats[] = $k;
+                echo '</li>'."\n";
+            }
+        }
+        //echo '</ul>';
+
+        //var_dump($kats);
+
+        ?>
+        <!--
   		<li><a href="">New Products</a></li>
   		<li><a href="">Promotion</a></li>
   		<li><a href="">Best Buy</a></li>
@@ -84,5 +133,6 @@
   		<li><a href="">FAQs</a></li>
   		<li><a href="">Retail</a></li>
   		<li><a href="">Contacts</a></li>
+  		-->
   	</ul>
   </div>

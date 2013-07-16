@@ -14,13 +14,18 @@ class controller_home extends extcontroller {
 
         $this->add_style('style/home.css');
         $this->add_style('style/lemonslider.css');
+        $this->add_style('style/flexnav.css');
         $this->add_script('script/lemmon-slider.js');
+        $this->add_script('script/jquery.flexnav.js');
+
         //$this->add_style('style/elastislide.css');
         //$this->add_script('script/jquerypp.custom.js');
         //$this->add_script('script/jquery.elastislide.js');
+
         $this->add_script('script/home.js');
 
-		$this->view('header.php');
+		$this->head();
+
 		$this->view('home.php', $data);
 		$this->view('footer.php');
 	}

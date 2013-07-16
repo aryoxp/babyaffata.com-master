@@ -105,6 +105,7 @@ ul.top-menu a, ul.top-menu a:hover {
 
 ul.menubar {
 	margin: 0;
+    display: block;
 }
 
 ul.menubar li {
@@ -113,21 +114,32 @@ ul.menubar li {
 	font-family: OpenSansCondensed;
 	font-size: 1.15em;
 	text-transform: uppercase;
-	padding: 0.5em 0.5em;
 	text-shadow: 0 1px 0 #4c7379;
 }
 
-ul.menubar li:first-child {
-	margin-left: 1em;
+ul.menubar li:first-child a img {
+	padding: 0 0 0 0.5em;
 }
 
 ul.menubar li a {
+    display: block;
+    padding: 0.2em 0.5em !important;
 	color: white;
 	text-decoration: none;
+    background-color: inherit;
+    border-radius: 5px;
+    margin: 0.3em 0;
 }
 ul.menubar li a:hover {
 	color: #4c7379;
-	text-shadow: 0 1px 0 white;
+	text-shadow: 0 1px 0 #d7e6e7;
+    background-color: #9bb8bc;
+}
+
+ul.menubar li ul li a {
+    margin: 0;
+    background-color: #a9cacf;
+    border-radius: 0;
 }
 
 
@@ -152,9 +164,9 @@ ul.menubar li a:hover {
 	left: -11px;
 	font-family: Spinnaker;
 	text-transform: uppercase;
-	text-shadow: 0 -1px 0 #d97237;
+	text-shadow: 0 -1px 0 #777;
 	color: white;
-	padding: 0.5em 0.5em 1.2em 1em;
+	padding: 0.5em 0.5em 1.2em 2em;
 	margin: 1em 0 0;
 }
 
@@ -169,23 +181,21 @@ ul.menubar li a:hover {
 	text-shadow: 0 1px 0 white;
 }
 
-.content-header {
-	left: -32px;
-}
+.content-header { }
 
 .header-link a {
 	float: right; 
 	font-family:Spinnaker; font-size: 0.8em; text-transform: uppercase;
-	color: #74949a;
+	color: #777;
 	text-shadow: 0 1px 0 white;
-	padding-top: 1.5em;
+    padding-right: 0.5em;
 }
 
 .hero, .content-box, .product-box {
 	border: 1px solid #E4E4E4;
 	border-radius: 3px;
 	background-color: white;
-	margin: 1.5em 1.5em 1.5em 0;
+	margin: 1.5em;
 }
 .hero {
     height: 300px;
@@ -206,7 +216,6 @@ ul.menubar li a:hover {
 .product-box {
 	margin: 0.5% 0;
 	margin-left: 1% !important;
-	width: 32.525% !important;
 	padding: 0.5em;
 	font-size: 0.9em;
 	color: #888;
@@ -216,7 +225,7 @@ ul.menubar li a:hover {
 }
 
 .product-box:first-child {
-	margin-left: 0 !important;
+    margin-left: 1em !important;
 }
 
 .product-box .product-image {
@@ -254,7 +263,7 @@ ul.menubar li a:hover {
 
 .about {
 	font-size: 0.9em;
-	padding: 0 2em 0 1em;
+	padding: 2em;
 }
 .about h2 {
 	font-family: OpenSansCondensed;
@@ -283,8 +292,32 @@ ul.menubar li a:hover {
     margin: 0 0.5em 1.3em;
 }
 
+.footer ul.help {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+}
+
+.footer ul.help li {
+    list-style: none;
+    padding: 0.3em 0;
+    display: inline-block;
+}
+
+.footer ul.help li:nth-child(odd) {
+    width: 35%;
+}
+.footer ul.help li:nth-child(even) {
+    width: 60%;
+}
+
+.footer .connect-icon {
+    width: 48px;
+    margin: 0.3em;
+}
+
 @media all and (min-width: 1200px) {
 	.content-header {
-		left: -42px;
+
 	}
 }

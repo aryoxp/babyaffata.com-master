@@ -1,11 +1,32 @@
 <div class="container content">
-	<div class="row" style="overflow: hidden;">
-		<div class="span3"><?php $this->view('sidebar.php'); ?></div>
+	<div class="row-fluid">
+		<div class="span3">
+            <ul class="hero-menu">
+                <li><a href="">Promotions</a></li>
+                <li><a href="">New Products</a></li>
+                <li><a href="">Best Buy</a></li>
+                <li><a href="">Confirmation</a></li>
+                <li><a href="">FAQs</a></li>
+            </ul>
+            <div class="content-header" style="width: 99%">
+                Search
+            </div>
+            <div class="search-badge">
+                <form name="main-search" action="<?php echo $this->location('product/search'); ?>" method="get">
+                    <input type="text" name="keyword" placeholder="Search">
+                </form>
+            </div>
+
+		</div>
 		
-		<div class="span9" style="padding-bottom: 2em;">
+		<div class="span9">
 			<div class="hero">
                 &nbsp;
 			</div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
 			<div class="content-header">
 				<div class="header-link"><a href="">Browse Our Products by Brands &raquo;</a></div>
 				Popular Brands
@@ -25,59 +46,31 @@
                             $key = $temp[count($temp)-1];
                         ?>
                         <li><a href="<?php echo $this->location('product/list/brand/'.$key); ?>">
-                                <img class="brand-icon" src="<?php echo $this->location("coms/".$b->logo_thumb); ?>">
+                                <img class="brand-icon" src="<?php echo $this->location("coms/".$b->logo_thumb); ?>"
+                                     alt="<?php echo $b->keterangan; ?>">
                             </a></li>
                         <?php endforeach; ?>
-                        <!--
-                        <li><a href="<?php echo $this->location('product/list/brand/cocalo'); ?>">
-                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/cocalo.png'); ?>">
-                            </a></li>
-                        <li><a href="<?php echo $this->location('product/list/brand/boogaboo'); ?>">
-                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/boogaboo.png'); ?>">
-                            </a></li>
-                        <li><a href="<?php echo $this->location('product/list/brand/fisherprice'); ?>">
-                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/fisherprice.png'); ?>">
-                            </a></li>
-                        <li><a href="<?php echo $this->location('product/list/brand/dr-browns'); ?>">
-                                <img class="brand-icon" src="<?php echo $this->asset('images/brands/dr-browns.png'); ?>">
-                            </a></li>
-                        -->
                     </ul>
+                    <!--#prev-page #prev-slide #next-slide #next-page-->
                 </div>
-                <!--
-                <div class="controls">
-                    <a href="#" class="prev-page">Prev Page</a> |
-                    <a href="#" class="prev-slide">Prev Slide</a> |
-                    <a href="#" class="next-slide">Next Slide</a> |
-                    <a href="#" class="next-page">Next Page</a>
-                </div>
-                -->
 			</div>
 
 			<div class="content-header">
 				<div class="header-link"><a href="">Our Best Offers &raquo;</a></div>
 				New Products
 			</div>
-			<div class="container-fluid" style="padding-left: 0;">
+			<div class="container-fluid">
 				<div class="row-fluid">
 					<?php $this->view('product-box.php'); ?>
 					<?php $this->view('product-box.php'); ?>
 					<?php $this->view('product-box.php'); ?>
+                    <?php $this->view('product-box.php'); ?>
 				</div>
 				<div class="row-fluid">
 					<?php $this->view('product-box.php'); ?>
 					<?php $this->view('product-box.php'); ?>
 					<?php $this->view('product-box.php'); ?>
-				</div>
-				<div class="row-fluid">
-					<?php $this->view('product-box.php'); ?>
-					<?php $this->view('product-box.php'); ?>
-					<?php $this->view('product-box.php'); ?>
-				</div>
-				<div class="row-fluid">
-					<?php $this->view('product-box.php'); ?>
-					<?php $this->view('product-box.php'); ?>
-					<?php $this->view('product-box.php'); ?>
+                    <?php $this->view('product-box.php'); ?>
 				</div>
 			</div>
 			

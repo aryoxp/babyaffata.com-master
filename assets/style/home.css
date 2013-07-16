@@ -1,3 +1,57 @@
+.hero {
+    background: url('../images/banners/banners.png') no-repeat;
+    border-radius: 5px;
+}
+
+ul.hero-menu {
+    margin: 1.5em 0 0 0;
+    border: 1px solid #CCC;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left: 0.5em solid #CCC;
+    background-color: #DDD;
+}
+
+ul.hero-menu li {
+    list-style: none;
+    font-family: OpenSansCondensed;
+    font-size: 1.15em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 white;
+    margin: 0;
+    border-bottom: 1px inset #CCC;
+}
+
+ul.hero-menu li:last-child {
+    border-bottom: none;
+}
+
+ul.hero-menu li a {
+    display: block;
+    color: #777;
+    padding: 0.5em 0.5em 0.5em 2em;
+}
+
+ul.hero-menu li a:hover {
+    background-color: #CCC;
+    text-decoration: none;
+}
+
+.search-badge {
+    padding-left: 1em;
+    border-top-right-radius: 3px;
+}
+
+.search-badge input[type=text] {
+    width: 75%;
+    margin-top: 0.5em;
+    padding: 0.5em 1em 0.5em 2.5em;
+    background: white url('../images/icon-search.png') no-repeat;
+    background-size: contain;
+}
+
+.hero { margin-left: 0; }
+
 .brand-icon {
     margin: 0.5em 0;
     padding: 0 0.5em;

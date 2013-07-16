@@ -8,6 +8,7 @@
 
 $(function() {
     // Handler for .ready() called.
+    $(".flexnav").flexNav();
 });
 
 $(window).load(function(){

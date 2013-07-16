@@ -9,6 +9,7 @@ class model_kategori extends model {
 		$sql = "SELECT
 					mid(md5(`tbl_kategori`.`kategori_id`),5,5) as `id`,
 					`tbl_kategori`.`kategori_id`,
+					`tbl_kategori`.`kategori_key`,
 					`tbl_kategori`.`keterangan`,
 					`tbl_kategori`.`is_publish`,
 					if(`tbl_kategori`.`is_publish`=1,'Publish','') as `ispublish`,
@@ -19,6 +20,7 @@ class model_kategori extends model {
 					`babyaffata`.`tbl_kategori`
 					WHERE 1=1 
 					";
+
 		if($id!=""){
 			$sql=$sql . " AND mid(md5(`tbl_kategori`.`kategori_id`),5,5)='".$id."' ";
 		}
@@ -34,6 +36,7 @@ class model_kategori extends model {
         $sql = "SELECT
 					mid(md5(`tbl_kategori`.`kategori_id`),5,5) as `id`,
 					`tbl_kategori`.`kategori_id`,
+					`tbl_kategori`.`kategori_key`,
 					`tbl_kategori`.`keterangan`,
 					`tbl_kategori`.`is_publish`,
 					if(`tbl_kategori`.`is_publish`=1,'Publish','') as `ispublish`,
@@ -56,6 +59,7 @@ class model_kategori extends model {
 	function get_kategori(){
 		$sql = "SELECT
 				`tbl_kategori`.`kategori_id`,
+				`tbl_kategori`.`kategori_key`,
 				`tbl_kategori`.`keterangan`,
 				`tbl_kategori`.`parent_id`,
 				`tbl_kategori`.`is_publish`,
@@ -72,6 +76,7 @@ class model_kategori extends model {
 	function get_tahap(){
 		$sql = "SELECT
 					`tbl_kategori`.`kategori_id`,
+					`tbl_kategori`.`kategori_key`,
 					`tbl_kategori`.`keterangan`,
 					`tbl_kategori`.`is_aktif`,
 					`tbl_kategori`.`parent_id`,

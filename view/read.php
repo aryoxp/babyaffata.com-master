@@ -1,13 +1,19 @@
 <div class="container content">
 	<div class="row" style="overflow: hidden;">
-		<div class="span3"><?php $this->view('sidebar.php'); ?></div>
+		<div class="span3"><?php $this->view('sidebar.php', array('kategoris'=>$kategoris)); ?></div>
 		
 		<div class="span9" style="padding-bottom: 2em;">
 		
 			<div class="content-box" style="margin-top: 1em; padding: 1em 1.5em;">
-			<?php //var_dump($content); ?>
+
+			<?php //var_dump($content);
+                if(isset($content) and is_object($content)) : ?>
 			<h2><?php echo $content->content_title; ?></h2>
 			<?php echo $content->content_content; ?>
+            <?php else: ?>
+            <h2>404: Page Not Found</h2>
+            <p>Sorry, but the page that you are looking for could not been found. Try checking the URL for errors, then hit refresh button on your web browser or you may wish to <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>">go back to previous page</a>.</p>
+            <?php endif; ?>
 			</div>
 			<hr>
 			<div class="about">

@@ -109,15 +109,18 @@ class barang_kategori extends comsmodule {
 		}else{
 			$ispublish	= 0;
 		}
-		
+
+
 				
 		$lastupdate	= date("Y-m-d H:i:s");
 		$user		= $this->coms->authenticatedUser->username;
 		$subkategori= $_POST['cmbsub'];
 		$keterangan	= $_POST['keterangan'];
+        $key        = trim(preg_replace('/[ \/]/', '-',
+            (preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 \/]/', '', strtolower($keterangan))))));
 		
 		if($keterangan){
-			$datanya 	= Array('kategori_id'=>$kode, 'parent_id'=>$subkategori, 'keterangan'=>$keterangan,  'is_publish'=>$ispublish);
+			$datanya 	= Array('kategori_id'=>$kode, 'kategori_key'=>$key, 'parent_id'=>$subkategori, 'keterangan'=>$keterangan,  'is_publish'=>$ispublish);
 			$mkategori->replace_kategori($datanya);
 			$this->redirect('module/barang/kategori/index/ok');
 			exit();
